@@ -1,25 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { Input } from './components/UI/Input/Input';
+import RainyScreen from './components/UI/RainyScreen/RainyScreen';
+import WeatherDataBlock from './components/UI/weatherDataBlock/weatherDataBlock';
 
 function App() {
+  const [text, setText] = useState('')
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Input value={text} onChange={setText}/>
+      <RainyScreen/>
+      <div className="content">
+        <WeatherDataBlock/>
+      </div>
+    </>
   );
 }
 

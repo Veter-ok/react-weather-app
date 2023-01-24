@@ -1,0 +1,172 @@
+.frame {
+	position: absolute;
+	z-index: 0;
+	width: 80%;
+	left: 10%;
+	height: 400px;
+	background-color: rgb(27, 34, 54);
+	overflow: hidden;
+}
+
+.moon {
+	width: 70px;
+	height: 70px;
+	position: absolute;
+	top: 80px;
+	left: 100px;
+	background-color: rgb(245, 237, 194);
+	border-radius: 100%;
+	box-shadow: 0 0 12px 0 rgb(245, 237, 194); 
+	z-index: 5;
+	animation-name: moon-rising;
+	animation-duration: 2s;
+	animation-fill-mode: forwards;
+}
+
+.spot {
+	position: absolute;
+	border-radius: 100%;
+	background-color: rgb(235, 225, 174);
+}
+
+.spot-1 {
+	height: 13px;
+	width: 13px;
+	top: 17px;
+	left: 29px;
+}
+
+.spot-2 {
+	height: 5px;
+	width: 5px;
+	top: 30px;
+	left: 15px;
+}
+
+.spot-3 {
+	height: 8px;
+	width: 8px;
+	top: 40px;
+	left: 25px;
+}
+
+.spot-4 {
+	height: 5px;
+	width: 5px;
+	top: 36px;
+	left: 50px;
+}
+
+.spot-5 {
+	height: 7px;
+	width: 7px;
+	top: 55px;
+	left: 40px;
+}
+
+.hill {
+	width: 50%;
+	height: 60%;
+	border-radius: 50%;
+	position: absolute;
+}
+
+.hill-1 {
+	top: 55%;
+	background-color: rgb(39, 49, 77); 
+	left: 60%;
+	z-index: 10;
+}
+
+.hill-2 {
+	top: 55%;
+	background-color: rgb(39, 49, 77); 
+	left: 20%;
+	z-index: 10;
+}
+
+
+.hill-3 {
+	top: 62%;
+	background-color: rgb(39, 49, 77); 
+	left: -15%;
+	z-index: 10;
+}
+
+
+.hill-4 {
+	top: 65%;
+	background-color: rgb(50, 60, 91); 
+	left: -10%;
+	z-index: 15;
+}
+
+
+.hill-5 {
+	top: 65%;
+	background-color: rgb(50, 60, 91); 
+	left: 30%;
+	z-index: 15;
+}
+
+
+.hill-6 {
+	top: 70%;
+	background-color: rgb(50, 60, 91); 
+	left: 70%;
+	z-index: 15;
+}
+
+.big-drop {
+	position:absolute;
+	background-color: rgb(84, 84, 250);
+	height: 15px;
+	width: 10px;
+	border-radius: 50%;
+	animation-name: drop;
+	animation-iteration-count: infinite;
+	animation-timing-function:linear;
+	z-index: 200;
+}
+
+.big-drop:nth-of-type(1) {
+	animation-duration: 1.4s;
+	top: -100px;
+	left: 100px;
+}
+
+.big-drop:nth-of-type(2) {
+	animation-duration: 1.4s;
+	animation-delay: 0.5s;
+	top: -100px;
+	left: 400px;
+}
+
+.big-drop:nth-of-type(3) {
+	animation-duration: 0.9s;
+	animation-delay: 0.5s;
+	top: -100px;
+	left: 150px;
+}
+
+.big-drop:nth-of-type(4) {
+	animation-duration: 1.2s;
+	animation-delay: 0.5s;
+	top: -100px;
+	left: 180px;
+}
+
+@keyframes moon-rising {
+	0% {
+		transform: translateY(200px);
+	}
+}
+
+@keyframes drop {
+	90% {
+		transform: rotateZ(10deg) translateY(500px);
+	}
+	100% {
+		transform: rotateZ(10deg) translateY(500px);
+	}
+}
