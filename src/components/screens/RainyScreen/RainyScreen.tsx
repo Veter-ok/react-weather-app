@@ -1,16 +1,24 @@
 import React, {FunctionComponent as FC} from "react";
 import './rainyScreen.css'
+import Moon from "../../drawing/moon/moon";
+import Sun from "../../drawing/sun/sun";
 
 const RainyScreen:FC = () => {
+	const currentlyDate = new Date()
+
 	return (
 		<div className="frame">
-			<div className="moon">
-				<div className="spot spot-1"></div>
-				<div className="spot spot-2"></div>
-				<div className="spot spot-3"></div>
-				<div className="spot spot-4"></div>
-				<div className="spot spot-5"></div>
-			</div>
+			{currentlyDate.getHours() > 6 && currentlyDate.getHours() < 18 ?
+			<Sun/>
+			:
+			<>
+				{currentlyDate.getHours() <= 6 || currentlyDate.getHours() > 20 ?
+					<Moon/>
+					:
+					<></>
+				}
+			</>
+			}
 			<div className="drops">
 				<div className="big-drop"></div>
 				<div className="big-drop"></div>

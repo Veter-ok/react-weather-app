@@ -1,0 +1,61 @@
+.moon {
+	width: 70px;
+	height: 70px;
+	position: absolute;
+	top: 80px;
+	left: 100px;
+	background-color: rgb(245, 237, 194);
+	border-radius: 100%;
+	box-shadow: 0 0 12px 0 rgb(245, 237, 194); 
+	z-index: 5;
+	animation-name: moon-rising;
+	animation-duration: 2s;
+	animation-fill-mode: forwards;
+}
+
+.spot {
+	position: absolute;
+	border-radius: 100%;
+	background-color: rgb(235, 225, 174);
+}
+
+.spot-1 {
+	height: 13px;
+	width: 13px;
+	top: 17px;
+	left: 29px;
+}
+
+.spot-2 {
+	height: 5px;
+	width: 5px;
+	top: 30px;
+	left: 15px;
+}
+
+.spot-3 {
+	height: 8px;
+	width: 8px;
+	top: 40px;
+	left: 25px;
+}
+
+.spot-4 {
+	height: 5px;
+	width: 5px;
+	top: 36px;
+	left: 50px;
+}
+
+.spot-5 {
+	height: 7px;
+	width: 7px;
+	top: 55px;
+	left: 40px;
+}
+
+@keyframes moon-rising {
+	0% {
+		transform: translateY(200px);
+	}
+}
