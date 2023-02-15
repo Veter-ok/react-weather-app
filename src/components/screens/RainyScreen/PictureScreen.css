@@ -4,6 +4,13 @@
 	width: 80%;
 	left: 10%;
 	height: 400px;
-	background-color: rgb(27, 34, 54);
 	overflow: hidden;
+}
+
+.dark {
+	background-color: rgb(27, 34, 54);
+}
+
+.light {
+	background-color: rgb(65, 106, 218);
 }

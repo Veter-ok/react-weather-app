@@ -2,14 +2,9 @@ import React, { createContext, useEffect, useState } from 'react';
 import './App.css';
 import { Input } from './components/UI/Input/Input';
 import PictureScreen from './components/screens/RainyScreen/PictureScreen';
-import WeatherDataBlock from './components/UI/weatherDataBlock/weatherDataBlock';
-
-interface IweatherData {
-  times: string[]
-  temperatures: number[]
-  humidity: number[]
-  windSpeed: number[]
-}
+import { IweatherData } from './types/weatherDataType';
+import {DarkModeProvider} from './context/DarkModeProvider';
+import Content from './components/content/content';
 
 export const WeatherDataContext = createContext<IweatherData>({
   times: [],
@@ -41,11 +36,13 @@ function App() {
 
   return (
     <WeatherDataContext.Provider value={{times: times, temperatures: temperature, humidity: humidity, windSpeed: windSpeed}}>
-      <Input value={text} onChange={setText}/>
-      <PictureScreen/>
-      <div className="content">
-        <WeatherDataBlock/>
-      </div>
+      <DarkModeProvider>
+        <>
+          <Input value={text} onChange={setText}/>
+          <PictureScreen/>
+          <Content/>
+        </>
+      </DarkModeProvider>
     </WeatherDataContext.Provider>
   );
 }

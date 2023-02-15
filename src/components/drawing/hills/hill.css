@@ -5,16 +5,23 @@
 	position: absolute;
 }
 
+.dark-1 {
+	background-color: rgb(39, 49, 77); 
+}
+
+.dark-2 {
+	background-color: rgb(50, 60, 91); 
+}
+
+
 .hill-1 {
 	top: 55%;
-	background-color: rgb(39, 49, 77); 
 	left: 60%;
 	z-index: 10;
 }
 
 .hill-2 {
 	top: 55%;
-	background-color: rgb(39, 49, 77); 
 	left: 20%;
 	z-index: 10;
 }
@@ -22,7 +29,6 @@
 
 .hill-3 {
 	top: 62%;
-	background-color: rgb(39, 49, 77); 
 	left: -15%;
 	z-index: 10;
 }
@@ -30,7 +36,6 @@
 
 .hill-4 {
 	top: 65%;
-	background-color: rgb(50, 60, 91); 
 	left: -10%;
 	z-index: 15;
 }
@@ -38,7 +43,6 @@
 
 .hill-5 {
 	top: 65%;
-	background-color: rgb(50, 60, 91); 
 	left: 30%;
 	z-index: 15;
 }
@@ -46,7 +50,6 @@
 
 .hill-6 {
 	top: 70%;
-	background-color: rgb(50, 60, 91); 
 	left: 70%;
 	z-index: 15;
 }

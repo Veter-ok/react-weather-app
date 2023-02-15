@@ -1,0 +1,15 @@
+.Content {
+	position: absolute;
+	top: 400px;
+	left: 5%;
+	width: 90%;
+	height: 100%;
+}
+
+.Content-light {
+	background-color: #fff;
+}
+
+/* .Content-dark {
+	background-color: #000;
+} */

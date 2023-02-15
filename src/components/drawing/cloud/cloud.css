@@ -1,0 +1,47 @@
+.cloud {
+	position: relative;
+	width: 90px;
+	height: 80px;
+	left: 700px;
+	top: 100px
+}
+
+
+.cloud-circle {
+	position: relative;
+	background-color: white;
+	border-radius: 50%;
+}
+
+.cloud-circle-1 {
+	height: 30px;
+	width: 30px;
+	left: 10px;
+	top: 10px;
+}
+
+.cloud-circle-2 {
+	height: 35px;
+	width: 35px;
+}
+
+.cloud-circle-3 {
+	height: 40px;
+	width: 40px;
+	left: 20px;
+	bottom: 40px;
+}
+
+.cloud-circle-4 {
+	height: 30px;
+	width: 30px;
+	left: 38px;
+	bottom: 90px;
+}
+
+.cloud-circle-5 {
+	height: 35px;
+	width: 35px;
+	left: 50px;
+	bottom: 107px;
+}

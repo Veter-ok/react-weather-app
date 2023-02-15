@@ -8,6 +8,16 @@
 	background-color: white;
 }
 
+.block-dark {
+	background-color: #000;
+	color: #fff;
+}
+
+.block-light {
+	background-color: #fff;
+	color: #000;
+}
+
 .temperature {
 	text-align: center;
 	font-size: 45px;
