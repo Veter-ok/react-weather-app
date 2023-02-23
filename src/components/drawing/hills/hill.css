@@ -5,12 +5,20 @@
 	position: absolute;
 }
 
-.dark-1 {
+.hill-night-1 {
 	background-color: rgb(39, 49, 77); 
 }
 
-.dark-2 {
+.hill-night-2 {
 	background-color: rgb(50, 60, 91); 
+}
+
+.hill-day-1 {
+	background-color: rgb(26, 134, 76); 
+}
+
+.hill-day-2 {
+	background-color: rgb(70, 207, 134); 
 }
 
 

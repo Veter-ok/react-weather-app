@@ -3,4 +3,6 @@ export interface IweatherData {
 	temperatures: number[]
 	humidity: number[]
 	windSpeed: number[]
+	rain: number[]
+	snowfall: number[]
 }

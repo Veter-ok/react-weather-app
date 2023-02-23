@@ -7,10 +7,10 @@
 	overflow: hidden;
 }
 
-.dark {
+.night {
 	background-color: rgb(27, 34, 54);
 }
 
-.light {
+.day {
 	background-color: rgb(65, 106, 218);
 }

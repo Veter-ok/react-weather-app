@@ -1,7 +1,8 @@
 import React, {FunctionComponent as FC, useContext, useEffect, useState} from "react";
 import './weatherDataBlock.css'
-import { WeatherDataContext } from "../../../App";
 import { DarkModeContext } from "../../../context/DarkModeProvider";
+import { WeatherDataContext } from "../../../context/WeatherDataProvider";
+import { formatDate } from "../../../utils/FormatDate";
 
 
 const WeatherDataBlock:FC = () => {
@@ -9,13 +10,11 @@ const WeatherDataBlock:FC = () => {
 	const {times, temperatures, humidity, windSpeed} = useContext(WeatherDataContext)
 	const darkMode = useContext(DarkModeContext)
 	const date = new Date()
-	const formattedDate = `${date.getUTCFullYear()}-${date.getUTCMonth() + 1 < 10 ? `0${date.getUTCMonth() + 1}` : date.getUTCMonth() + 1}-${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}`
-	const formattedTime = `${date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()}:00`
+	const formattedDate = formatDate(date)
 
 	useEffect(() => {
-		const currentlyDate = `${formattedDate}T${formattedTime}`
-		setIndexOfDate(times.indexOf(currentlyDate))
-	}, [formattedDate, formattedTime, times])
+		setIndexOfDate(times.indexOf(formattedDate))
+	}, [formattedDate, times])
 
 	return (
 		<div className={darkMode ? "block block-dark" : "block block-light"}>

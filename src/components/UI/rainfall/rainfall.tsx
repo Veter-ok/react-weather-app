@@ -1,11 +1,19 @@
 import React, {FunctionComponent as FC} from 'react'
 import Rain from '../../drawing/rain/rain'
 
-const Rainfall:FC = () => {
+interface IPropsRainfall {
+	rain: number
+}
+
+const Rainfall:FC<IPropsRainfall> = ({rain}) => {
 
 	return (
 		<>
-			<Rain/>
+			{rain > 0 ?
+				<Rain/>
+				:
+				<></>
+			}
 		</>
 	)
 }
