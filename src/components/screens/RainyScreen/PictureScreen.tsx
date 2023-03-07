@@ -7,7 +7,7 @@ import Hill from "../../drawing/hills/hill";
 import { WeatherDataContext } from "../../../context/WeatherDataProvider";
 import { formatDate } from "../../../utils/FormatDate";
 
-export const PictureThemeContext = createContext<string>("day")
+export const PictureThemeContext = createContext<string>("day-summer")
 
 const PictureScreen:FC = () => {
 	const {times, rain} = useContext(WeatherDataContext)
@@ -20,9 +20,9 @@ const PictureScreen:FC = () => {
 	useEffect(() => {
 		const time = date.getHours()
 		if (time > 8 && time < 18){
-			setTheme("day")
+			setTheme("winter-day")
 		}else if (time >= 18){
-			setTheme("night")
+			setTheme("winter-night")
 		}
 	}, [date, theme])
 	

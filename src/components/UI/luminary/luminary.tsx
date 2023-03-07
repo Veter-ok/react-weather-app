@@ -11,7 +11,7 @@ const Luminary:FC = () => {
 				<Sun/>
 				:
 				<>
-					{currentlyDate.getHours() <= 6 || currentlyDate.getHours() > 20 ?
+					{currentlyDate.getHours() <= 6 || currentlyDate.getHours() >= 20 ?
 						<Moon/>
 						:
 						<></>

@@ -5,20 +5,28 @@
 	position: absolute;
 }
 
-.hill-night-1 {
-	background-color: rgb(39, 49, 77); 
+.hill-winter-day-1 {
+	background-color: rgb(240, 240, 240); 
 }
 
-.hill-night-2 {
-	background-color: rgb(50, 60, 91); 
+.hill-winter-day-2 {
+	background-color: rgb(250, 250, 250); 
 }
 
-.hill-day-1 {
+.hill-summer-day-1 {
 	background-color: rgb(26, 134, 76); 
 }
 
-.hill-day-2 {
+.hill-summer-day-2 {
 	background-color: rgb(70, 207, 134); 
+}
+
+.hill-summer-night-1, .hill-winter-night-1 {
+	background-color: rgb(39, 49, 77); 
+}
+
+.hill-summer-night-2 , .hill-winter-night-2 {
+	background-color: rgb(50, 60, 91); 
 }
 
 
