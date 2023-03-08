@@ -5,19 +5,22 @@ import PictureScreen from './components/screens/RainyScreen/PictureScreen';
 import {DarkModeProvider} from './context/DarkModeProvider';
 import Content from './components/content/content';
 import { WeatherDataProvider } from './context/WeatherDataProvider';
+import { WeatherDataOWAPIProvider} from './context/WeatherDataProviderOWAPI';
 
 function App() {
   const [text, setText] = useState('')
   return (
-    <WeatherDataProvider>
-      <DarkModeProvider>
-        <>
-          <Input value={text} onChange={setText}/>
-          <PictureScreen/>
-          <Content/>
-        </>
-      </DarkModeProvider>
-    </WeatherDataProvider>
+      // <WeatherDataOWAPIProvider>
+      <WeatherDataProvider>
+        <DarkModeProvider>
+          <>
+            <Input value={text} onChange={setText}/>
+            <PictureScreen/>
+            <Content/>
+          </>
+        </DarkModeProvider>
+      </WeatherDataProvider>
+      // {/* </WeatherDataOWAPIProvider> */}
   );
 }
 
