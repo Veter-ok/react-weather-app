@@ -1,0 +1,41 @@
+input {
+	position: absolute;
+	top: 40px;
+	left: 35%;
+	color: white;
+	text-align: center;
+	font-size: 16px;
+	border-color: white;
+	z-index: 10;
+	display: block;
+	width: 30%;
+	height: 25px;
+	border-radius: 10px;
+	background-color: transparent;
+}
+
+.results {
+	position: absolute;
+	width: 30%;
+	height: 150px;
+	overflow:scroll;
+	top: 80px;
+	left: 35%;
+	padding: 5px;
+	background-color: white;
+	border-radius: 15px;
+	z-index: 10;
+}
+
+.cityBlock {
+	margin: 5px;
+	height: 30px;
+	width: 95%;
+	padding: 5px;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.cityBlock:hover {
+	background-color: rgb(209, 209, 217);
+}

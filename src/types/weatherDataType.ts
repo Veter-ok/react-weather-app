@@ -14,6 +14,7 @@ export interface IHourlyWeatherData {
 	temperatures: number[]
 	humidity: number[]
 	windSpeed: number[]
+	cloudcover: number[]
 	rain: number[]
 	snowfall: number[]
 }
@@ -22,6 +23,7 @@ export interface ICurrentlyWeatherData {
 	temperature: number
 	humidity: number
 	windSpeed: number
+	cloudcover: number
 	rain: number
 	snowfall: number
 }

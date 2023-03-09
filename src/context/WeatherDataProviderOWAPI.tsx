@@ -2,6 +2,7 @@ import React, {createContext, FunctionComponent as FC, useEffect, useState} from
 import {IweatherDataOWAPI } from "../types/weatherDataType";
 
 interface IWeatherOWAPIDataProviderProps {
+	coordinates: {lat: number, lon: number}
 	children: JSX.Element
 }
 
@@ -10,6 +11,7 @@ const WeatherOWAPIDataContext = createContext<IweatherDataOWAPI>({
 		temperature: 0,
 		humidity: 0,
 		windSpeed: 0,
+		cloudcover: 0,
 		rain: 0,
 		snowfall: 0,
 	},
@@ -18,17 +20,19 @@ const WeatherOWAPIDataContext = createContext<IweatherDataOWAPI>({
 		temperatures: [],
 		humidity: [],
 		windSpeed: [],
+		cloudcover: [],
 		rain: [],
 		snowfall: [],
 	} || null
 })
 
-const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = (props) => {
+const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({coordinates, children}) => {
 	const [weatherData, setWeatherData] = useState({
 		currentlyWeather: {
 			temperature: 0,
 			humidity: 0,
 			windSpeed: 0,
+			cloudcover: 0,
 			rain: 0,
 			snowfall: 0,
 		},
@@ -36,30 +40,27 @@ const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = (props) => {
 	})
 
 	useEffect(() => {
-		const URL = 'https://api.openweathermap.org/data/2.5/onecall?lat=55.78&lon=37.56&exclude=hourly,daily&appid=347a140363f071901c55aed50511ccf7'
+		const URL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=hourly,daily&appid=347a140363f071901c55aed50511ccf7`
 		fetch(URL).then(response => {
 			response.json().then(data => {
-				const currentlyWeatherData = {
-					temperature: Math.round(data.current.temp - 273.15),
-					humidity: data.current.humidity,
-					windSpeed: data.current.wind_speed,
-					rain: 0,
-					snowfall: data.current.snow === undefined ? 0 : data.current.snow["1h"]
-				}
 				setWeatherData({
-					currentlyWeather: currentlyWeatherData,
+					currentlyWeather: {
+						temperature: Math.round(data.current.temp - 273.15),
+						humidity: data.current.humidity,
+						windSpeed: data.current.wind_speed,
+						cloudcover: data.current.clouds,
+						rain: 0,
+						snowfall: data.current.snow === undefined ? 0 : data.current.snow["1h"]
+					},
 					hourlyWeather: null
 				})
-				console.log(currentlyWeatherData)
 			})
 		})
-	}, [])
-
-	console.log(weatherData)
+	}, [coordinates.lat, coordinates.lon])
 
 	return (
 		<WeatherOWAPIDataContext.Provider value={weatherData}>
-			{props.children}
+			{children}
 		</WeatherOWAPIDataContext.Provider>
 	)
 }

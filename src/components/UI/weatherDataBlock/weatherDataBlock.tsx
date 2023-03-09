@@ -1,15 +1,12 @@
-import React, {FunctionComponent as FC, useContext} from "react";
+import {FunctionComponent as FC, useContext} from "react";
 import './weatherDataBlock.css'
 import { DarkModeContext } from "../../../context/DarkModeProvider";
-import { WeatherDataContext } from "../../../context/WeatherDataProvider";
 import { WeatherOWAPIDataContext } from "../../../context/WeatherDataProviderOWAPI";
 
 
 const WeatherDataBlock:FC = () => {
-	const {currentlyWeather} = useContext(WeatherDataContext)
-	// const {currentlyWeather} = useContext(WeatherOWAPIDataContext)
+	const {currentlyWeather} = useContext(WeatherOWAPIDataContext)
 	const darkMode = useContext(DarkModeContext)
-	console.log(currentlyWeather)
 
 	return (
 		<div className={darkMode ? "block block-dark" : "block block-light"}>

@@ -5,11 +5,11 @@
 	position: absolute;
 }
 
-.hill-winter-day-1 {
+.hill-winter-day-1, .hill-winter-overcast-day-1 {
 	background-color: rgb(240, 240, 240); 
 }
 
-.hill-winter-day-2 {
+.hill-winter-day-2,  .hill-winter-overcast-day-2 {
 	background-color: rgb(250, 250, 250); 
 }
 

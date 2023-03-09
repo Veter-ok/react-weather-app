@@ -1,26 +1,29 @@
-import React, {useState } from 'react';
 import './App.css';
-import { Input } from './components/UI/Input/Input';
 import PictureScreen from './components/screens/RainyScreen/PictureScreen';
 import {DarkModeProvider} from './context/DarkModeProvider';
 import Content from './components/content/content';
 import { WeatherDataProvider } from './context/WeatherDataProvider';
 import { WeatherDataOWAPIProvider} from './context/WeatherDataProviderOWAPI';
+import { SearchCity } from './components/UI/SearchCity/SearchCity';
+import { useState } from 'react';
 
 function App() {
-  const [text, setText] = useState('')
+  const [coordinates, setCoordinates] = useState({lat: 55.78, lon: 37.56})
+
   return (
-      // <WeatherDataOWAPIProvider>
-      <WeatherDataProvider>
-        <DarkModeProvider>
-          <>
-            <Input value={text} onChange={setText}/>
-            <PictureScreen/>
-            <Content/>
-          </>
-        </DarkModeProvider>
-      </WeatherDataProvider>
-      // {/* </WeatherDataOWAPIProvider> */}
+      <>
+       <SearchCity setCoordinates={setCoordinates}/>
+        <WeatherDataOWAPIProvider coordinates={coordinates}>
+          <WeatherDataProvider coordinates={coordinates}>
+            <DarkModeProvider>
+              <>
+                <PictureScreen/>
+                <Content/>
+              </>
+            </DarkModeProvider>
+          </WeatherDataProvider>
+        </WeatherDataOWAPIProvider>
+      </>
   );
 }
 
