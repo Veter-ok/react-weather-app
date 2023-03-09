@@ -14,6 +14,7 @@ const WeatherOWAPIDataContext = createContext<IweatherDataOWAPI>({
 		cloudcover: 0,
 		rain: 0,
 		snowfall: 0,
+		snowDepth: 0
 	},
 	hourlyWeather: {
 		times: [],
@@ -35,6 +36,7 @@ const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({coordinate
 			cloudcover: 0,
 			rain: 0,
 			snowfall: 0,
+			snowDepth: 0
 		},
 		hourlyWeather: null
 	})
@@ -50,7 +52,8 @@ const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({coordinate
 						windSpeed: data.current.wind_speed,
 						cloudcover: data.current.clouds,
 						rain: 0,
-						snowfall: data.current.snow === undefined ? 0 : data.current.snow["1h"]
+						snowfall: data.current.snow === undefined ? 0 : data.current.snow["1h"],
+						snowDepth: 0
 					},
 					hourlyWeather: null
 				})

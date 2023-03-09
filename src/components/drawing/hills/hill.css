@@ -9,7 +9,7 @@
 	background-color: rgb(240, 240, 240); 
 }
 
-.hill-winter-day-2,  .hill-winter-overcast-day-2 {
+.hill-winter-day-2, .hill-winter-overcast-day-2{
 	background-color: rgb(250, 250, 250); 
 }
 
@@ -21,11 +21,11 @@
 	background-color: rgb(70, 207, 134); 
 }
 
-.hill-summer-night-1, .hill-winter-night-1 {
+.hill-summer-night-1, .hill-winter-night-1, .hill-summer-overcast-day-1 {
 	background-color: rgb(39, 49, 77); 
 }
 
-.hill-summer-night-2 , .hill-winter-night-2 {
+.hill-summer-night-2 , .hill-winter-night-2, .hill-summer-overcast-day-2 {
 	background-color: rgb(50, 60, 91); 
 }
 

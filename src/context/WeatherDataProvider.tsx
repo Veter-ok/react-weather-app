@@ -15,6 +15,7 @@ const WeatherDataContext = createContext<IweatherData>({
 		cloudcover: 0,
 		rain: 0,
 		snowfall: 0,
+		snowDepth: 0,
 	},
 	hourlyWeather: {
 		times: [],
@@ -36,12 +37,13 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 			cloudcover: 0,
 			rain: 0,
 			snowfall: 0,
+			snowDepth: 0
 		},
 		hourlyWeather: null,
 	})
 
 	useEffect(() => {
-		const URL = `https://api.open-meteo.com/v1/forecast?latitude=${coordinates.lat}&longitude=${coordinates.lon}&hourly=temperature_2m,relativehumidity_2m,cloudcover,windspeed_10m,snowfall,rain`
+		const URL = `https://api.open-meteo.com/v1/forecast?latitude=${coordinates.lat}&longitude=${coordinates.lon}&hourly=temperature_2m,relativehumidity_2m,cloudcover,windspeed_10m,snowfall,rain,snow_depth`
 		fetch(URL).then((response) => {
 			response.json().then((data) => {
 				const date = new Date()
@@ -53,7 +55,8 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 						cloudcover: data.hourly.cloudcover[index],
 						windSpeed: data.hourly.windspeed_10m[index],
 						rain: data.hourly.rain[index],
-						snowfall: data.hourly.snowfall[index]
+						snowfall: data.hourly.snowfall[index],
+						snowDepth: data.hourly.snow_depth[index]
 					},
 					hourlyWeather: {
 						times: data.hourly.time, 
@@ -69,7 +72,7 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 		}).catch((error) => {
 			console.log(error)
 		})
-	}, [])
+	}, [coordinates.lat, coordinates.lon])
 
 	return (
 		<div>

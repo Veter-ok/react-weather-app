@@ -18,24 +18,27 @@ const PictureScreen:FC = () => {
 
 	useEffect(() => {
 		const time = date.getHours()
-		if (time > 8 && time < 18){
-			if (currentlyWeather.snowfall > 0){
-				if (currentlyWeather.cloudcover === 100){
-					setTheme("winter-overcast-day")
-				}else{
-					setTheme("winter-day")	
-				}
-			}else{
-				setTheme("summer-day")	
-			}
-		}else if (time >= 18){
-			if (currentlyWeather.snowfall > 0){
-				setTheme("winter-night")
-			}else{
-				setTheme("summer-night")
-			}
+		let createTheme = ''
+
+		if (currentlyWeather.snowDepth > 0){
+			createTheme += 'winter-'
+		}else{
+			createTheme += 'summer-'
 		}
-	}, [currentlyWeather.cloudcover, currentlyWeather.snowfall, date])
+
+		if (currentlyWeather.cloudcover <= 100 && currentlyWeather.cloudcover >= 90 ){
+			createTheme += 'overcast-'
+		}
+
+		if (time > 8 && time < 18){
+			createTheme += 'day'
+		}else if (time >= 18){
+			createTheme += 'night'
+		}
+		console.log(currentlyWeather, createTheme)
+		setTheme(createTheme)
+	}, [currentlyWeather, currentlyWeather.cloudcover, currentlyWeather.snowDepth, date])
+
 	
 	return (
 		<PictureThemeContext.Provider value={theme}>

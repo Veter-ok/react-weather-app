@@ -1,8 +1,9 @@
+import { CityType } from '../../../types/CityTypes';
 import './SearchCity.css'
 import React, {FunctionComponent as FC, useState} from "react";
 
 interface IPropsSearchCity {
-	setCoordinates: (coordinates: {lat: number, lon: number}) => void
+	setCity: (param: CityType) => void
 }
 
 interface cityType {
@@ -12,12 +13,12 @@ interface cityType {
 	longitude: number
 }
 
-export const SearchCity:FC<IPropsSearchCity> = ({setCoordinates}) => {
-	const [city, setCity] = useState('')
+export const SearchCity:FC<IPropsSearchCity> = ({setCity}) => {
+	const [currentlyCity, setCurrentlyCity] = useState('')
 	const [cities, setCities] = useState<Array<cityType>>([{city: '', countryCode: '', latitude: 0, longitude: 0}])
 
 	const onChangeValue = async (value: string) => {
-		setCity(value)
+		setCurrentlyCity(value)
 		const options = {
 			method: 'GET',
 			headers: {
@@ -30,7 +31,6 @@ export const SearchCity:FC<IPropsSearchCity> = ({setCoordinates}) => {
 			.then(response => response.json())
 			.then(response => {
 				if (response.data !== undefined){
-					console.log(response.data)
 					setCities(response.data)
 				}
 			})
@@ -41,14 +41,14 @@ export const SearchCity:FC<IPropsSearchCity> = ({setCoordinates}) => {
 	}
 
 	const chooseCity = (city: cityType) => {
-		setCoordinates({lat: city.latitude, lon: city.longitude})
+		setCity({cityName: city.city, coordinates: {lat: city.latitude, lon: city.longitude}})
 		setCities([{city: '', countryCode: '', latitude: 0, longitude: 0}])
-		setCity('')
+		setCurrentlyCity('')
 	}
 
 	return (
 		<>
-			<input type="text" value={city} onChange={(e) => onChangeValue(e.target.value)}></input>
+			<input type="text" value={currentlyCity} onChange={(e) => onChangeValue(e.target.value)}></input>
 			{cities.length > 1 ?
 				<div className="results">
 					{cities.map((value, index) => 

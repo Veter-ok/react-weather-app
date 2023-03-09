@@ -11,10 +11,10 @@
 	background-color: rgb(27, 34, 54);
 }
 
-.winter-overcast-day {
+.winter-overcast-day, .summer-overcast-day {
 	background-color: rgb(79, 83, 94);
 }
 
-.winter-day {
+.winter-day, .summer-day {
 	background-color: rgb(65, 106, 218);
 }

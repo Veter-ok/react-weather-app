@@ -26,4 +26,5 @@ export interface ICurrentlyWeatherData {
 	cloudcover: number
 	rain: number
 	snowfall: number
+	snowDepth: number
 }
