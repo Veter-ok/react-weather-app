@@ -1,0 +1,21 @@
+.snow {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: white;
+	animation-name: fall;
+	animation-duration: 2.4s;
+	animation-iteration-count: infinite;
+	top: -15px;
+	left: 0px;
+}
+
+@keyframes fall {
+	90% {
+		transform: rotateZ(10deg) translateY(400px);
+	}
+	100% {
+		transform: rotateZ(10deg) translateY(400px);
+	}
+}

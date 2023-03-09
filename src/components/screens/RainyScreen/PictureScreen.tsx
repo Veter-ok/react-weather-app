@@ -6,6 +6,7 @@ import Clouds from "../../UI/clouds/clouds";
 import Hill from "../../drawing/hills/hill";
 import { WeatherDataContext } from "../../../context/WeatherDataProvider";
 import { WeatherOWAPIDataContext } from "../../../context/WeatherDataProviderOWAPI";
+import SnowFall from "../../UI/showFall/snowFall";
 
 export const PictureThemeContext = createContext<string>("")
 
@@ -20,7 +21,7 @@ const PictureScreen:FC = () => {
 		const time = date.getHours()
 		let createTheme = ''
 
-		if (currentlyWeather.snowDepth > 0){
+		if (currentlyWeather.snowDepth > 0.05){
 			createTheme += 'winter-'
 		}else{
 			createTheme += 'summer-'
@@ -45,6 +46,7 @@ const PictureScreen:FC = () => {
 			<div className={`frame ${theme}`}>
 				<Luminary cloudcover={currentlyWeather.cloudcover}/>
 				<Rainfall rain={currentlyWeather.rain}/>
+				<SnowFall snowFall={currentlyWeather.snowfall}/>
 				<Clouds/>
 				<Hill/>
 			</div>
