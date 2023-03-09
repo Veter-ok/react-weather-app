@@ -23,11 +23,9 @@ export const SearchCity:FC<IPropsSearchCity> = ({setCity}) => {
 		if (value !== ''){
 			const delay = Date.now() - prevTime
 			if (delay >= 1000){
-				console.log("now", delay, value)
 				await sendRequest(value)
 				SetPrevTime(Date.now())
 			}else{
-				// console.log("timeout", delay, value)
 				// await setTimeout(sendRequest, 1000 - delay + 200, value)
 				// SetPrevTime(Date.now())
 			}

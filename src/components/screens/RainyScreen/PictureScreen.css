@@ -7,7 +7,7 @@
 	overflow: hidden;
 }
 
-.winter-night, .summer-night {
+.winter-night, .winter-overcast-night, .summer-overcast-night, .summer-night {
 	background-color: rgb(27, 34, 54);
 }
 

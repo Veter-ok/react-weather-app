@@ -1,6 +1,6 @@
 import React, {createContext, FunctionComponent as FC, useEffect, useState} from "react"; 
 import { IweatherData } from "../types/weatherDataType";
-import { formatDate } from "../utils/FormatDate";
+import { OPEN_METEO_API_URL } from "../api/api";
 
 interface IWeatherDataProviderProps {
 	coordinates: {lat: number, lon: number}
@@ -9,6 +9,7 @@ interface IWeatherDataProviderProps {
 
 const WeatherDataContext = createContext<IweatherData>({
 	currentlyWeather: {
+		time: '',
 		temperature: 0,
 		humidity: 0,
 		windSpeed: 0,
@@ -31,6 +32,7 @@ const WeatherDataContext = createContext<IweatherData>({
 const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, children}) => {
 	const [weatherData, setWeatherData] = useState<IweatherData>({
 		currentlyWeather: {
+			time: '',
 			temperature: 0,
 			humidity: 0,
 			windSpeed: 0,
@@ -43,17 +45,17 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 	})
 
 	useEffect(() => {
-		const URL = `https://api.open-meteo.com/v1/forecast?latitude=${coordinates.lat}&longitude=${coordinates.lon}&hourly=temperature_2m,relativehumidity_2m,cloudcover,windspeed_10m,snowfall,rain,snow_depth`
+		const URL = `${OPEN_METEO_API_URL}latitude=${coordinates.lat}&longitude=${coordinates.lon}&hourly=temperature_2m,relativehumidity_2m,cloudcover,windspeed_10m,snowfall,rain,snow_depth&current_weather=true&timezone=auto`
 		fetch(URL).then((response) => {
 			response.json().then((data) => {
-				const date = new Date()
-				const index = data.hourly.time.indexOf(formatDate(date))
+				const index = data.hourly.time.indexOf(data["current_weather"].time)
 				setWeatherData({
 					currentlyWeather: {
-						temperature: data.hourly.temperature_2m[index],
+						time: new Date().toLocaleString("ru-RU", {timeZone: data.timezone}),
+						temperature: data["current_weather"].temperature,
 						humidity: data.hourly.relativehumidity_2m[index],
 						cloudcover: data.hourly.cloudcover[index],
-						windSpeed: data.hourly.windspeed_10m[index],
+						windSpeed: data["current_weather"].windspeed,
 						rain: data.hourly.rain[index],
 						snowfall: data.hourly.snowfall[index],
 						snowDepth: data.hourly.snow_depth[index]

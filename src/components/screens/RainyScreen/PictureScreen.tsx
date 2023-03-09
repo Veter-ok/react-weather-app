@@ -14,11 +14,12 @@ const PictureScreen:FC = () => {
 	const {currentlyWeather} = useContext(WeatherDataContext)
 	//const {currentlyWeather} = useContext(WeatherOWAPIDataContext)
 	const [theme, setTheme] = useState("")
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const date = new Date()
 
 	useEffect(() => {
-		const time = date.getHours()
+		let time = 0
+		if (currentlyWeather.time){
+			time = Number(currentlyWeather.time.split(',')[1].split(':')[0])
+		}
 		let createTheme = ''
 
 		if (currentlyWeather.snowDepth > 0.05){
@@ -38,13 +39,13 @@ const PictureScreen:FC = () => {
 		}
 		console.log(currentlyWeather, createTheme)
 		setTheme(createTheme)
-	}, [currentlyWeather, currentlyWeather.cloudcover, currentlyWeather.snowDepth, date])
+	}, [currentlyWeather, currentlyWeather.cloudcover, currentlyWeather.snowDepth])
 
 	
 	return (
 		<PictureThemeContext.Provider value={theme}>
 			<div className={`frame ${theme}`}>
-				<Luminary cloudcover={currentlyWeather.cloudcover}/>
+				<Luminary hour={currentlyWeather.time ? Number(currentlyWeather.time.split(',')[1].split(':')[0]) : 0} cloudcover={currentlyWeather.cloudcover}/>
 				<Rainfall rain={currentlyWeather.rain}/>
 				<SnowFall snowFall={currentlyWeather.snowfall}/>
 				<Clouds/>

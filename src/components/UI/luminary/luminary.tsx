@@ -3,17 +3,16 @@ import Sun from '../../drawing/sun/sun'
 import Moon from '../../drawing/moon/moon'
 
 interface IPropsLuminary {
+	hour: number
 	cloudcover: number
 }
 
-const Luminary:FC<IPropsLuminary> = ({cloudcover}) => {
-	const currentlyDate = new Date()
-
+const Luminary:FC<IPropsLuminary> = ({hour, cloudcover}) => {
 	const chooseLuminary = () => {
 		if (cloudcover < 90){
-			if (currentlyDate.getHours() > 6 && currentlyDate.getHours() < 18){
+			if (hour > 6 && hour < 18){
 				return <Sun/>
-			}else if (currentlyDate.getHours() <= 6 || currentlyDate.getHours() >= 20 ){
+			}else if (hour <= 6 || hour >= 20 ){
 				return <Moon/>
 			}else{
 				return <></>

@@ -1,5 +1,6 @@
 import React, {createContext, FunctionComponent as FC, useEffect, useState} from "react"; 
 import {IweatherDataOWAPI } from "../types/weatherDataType";
+import { OPEN_WEATHER_API_URL } from "../api/api";
 
 interface IWeatherOWAPIDataProviderProps {
 	coordinates: {lat: number, lon: number}
@@ -8,6 +9,7 @@ interface IWeatherOWAPIDataProviderProps {
 
 const WeatherOWAPIDataContext = createContext<IweatherDataOWAPI>({
 	currentlyWeather: {
+		time: '',
 		temperature: 0,
 		humidity: 0,
 		windSpeed: 0,
@@ -30,6 +32,7 @@ const WeatherOWAPIDataContext = createContext<IweatherDataOWAPI>({
 const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({coordinates, children}) => {
 	const [weatherData, setWeatherData] = useState({
 		currentlyWeather: {
+			time: '',
 			temperature: 0,
 			humidity: 0,
 			windSpeed: 0,
@@ -42,11 +45,12 @@ const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({coordinate
 	})
 
 	useEffect(() => {
-		const URL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=hourly,daily&appid=347a140363f071901c55aed50511ccf7`
+		const URL = `${OPEN_WEATHER_API_URL}lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=hourly,daily&appid=347a140363f071901c55aed50511ccf7`
 		fetch(URL).then(response => {
 			response.json().then(data => {
 				setWeatherData({
 					currentlyWeather: {
+						time: new Date().toLocaleString("ru-RU", {timeZone: data.timezone}),
 						temperature: Math.round(data.current.temp - 273.15),
 						humidity: data.current.humidity,
 						windSpeed: data.current.wind_speed,

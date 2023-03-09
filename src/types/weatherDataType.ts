@@ -20,6 +20,7 @@ export interface IHourlyWeatherData {
 }
 
 export interface ICurrentlyWeatherData {
+	time: string
 	temperature: number
 	humidity: number
 	windSpeed: number
