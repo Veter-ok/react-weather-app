@@ -15,10 +15,28 @@ interface cityType {
 
 export const SearchCity:FC<IPropsSearchCity> = ({setCity}) => {
 	const [currentlyCity, setCurrentlyCity] = useState('')
+	const [prevTime, SetPrevTime] = useState(Date.now())
 	const [cities, setCities] = useState<Array<cityType>>([{city: '', countryCode: '', latitude: 0, longitude: 0}])
 
 	const onChangeValue = async (value: string) => {
 		setCurrentlyCity(value)
+		if (value !== ''){
+			const delay = Date.now() - prevTime
+			if (delay >= 1000){
+				console.log("now", delay, value)
+				await sendRequest(value)
+				SetPrevTime(Date.now())
+			}else{
+				// console.log("timeout", delay, value)
+				// await setTimeout(sendRequest, 1000 - delay + 200, value)
+				// SetPrevTime(Date.now())
+			}
+		}else{
+			setCities([{city: '', countryCode: '', latitude: 0, longitude: 0}])
+		}
+	}
+
+	const sendRequest = async (value: string) => {
 		const options = {
 			method: 'GET',
 			headers: {
@@ -26,8 +44,7 @@ export const SearchCity:FC<IPropsSearchCity> = ({setCity}) => {
 				'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
 			}
 		};
-		if (value !== ''){
-			await fetch(`https://wft-geo-db.p.rapidapi.com/v1/geo/cities?limit=10&minPopulation=20000&namePrefix=${value}&sort=population`, options)
+		await fetch(`https://wft-geo-db.p.rapidapi.com/v1/geo/cities?limit=10&minPopulation=20000&namePrefix=${value}`, options)
 			.then(response => response.json())
 			.then(response => {
 				if (response.data !== undefined){
@@ -35,9 +52,6 @@ export const SearchCity:FC<IPropsSearchCity> = ({setCity}) => {
 				}
 			})
 			.catch(err => console.log(err));
-		}else{
-			setCities([{city: '', countryCode: '', latitude: 0, longitude: 0}])
-		}
 	}
 
 	const chooseCity = (city: cityType) => {
