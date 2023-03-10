@@ -5,6 +5,7 @@
 	position: absolute;
 }
 
+
 .hill-winter-day-1, .hill-winter-overcast-day-1 {
 	background-color: rgb(240, 240, 240); 
 }
@@ -29,6 +30,13 @@
 	background-color: rgb(50, 60, 91); 
 }
 
+.hill-summer-overcast-morning-1 {
+	background-color: rgb(150, 170, 160); 
+}
+
+.hill-summer-overcast-morning-2 {
+	background-color: rgb(150, 180, 150); 
+}
 
 .hill-1 {
 	top: 55%;

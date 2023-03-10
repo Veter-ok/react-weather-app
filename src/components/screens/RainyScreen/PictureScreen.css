@@ -7,7 +7,7 @@
 	overflow: hidden;
 }
 
-.winter-night, .winter-overcast-night, .summer-overcast-night, .summer-night {
+/* .winter-night, .winter-overcast-night, .summer-overcast-night, .summer-night {
 	background-color: rgb(27, 34, 54);
 }
 
@@ -17,4 +17,20 @@
 
 .winter-day, .summer-day {
 	background-color: rgb(65, 106, 218);
+} */
+
+.morning {
+	background-color: rgb(154, 167, 206);
+}
+
+.day{
+	background-color: rgb(65, 106, 218);
+}
+
+.overcast {
+	background-color: rgb(79, 83, 94);
+}
+
+.night {
+	background-color: rgb(27, 34, 54);
 }

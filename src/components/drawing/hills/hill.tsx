@@ -7,12 +7,12 @@ const Hill:FC = () => {
 
 	return (
 		<>
-			<div className={`hill hill-1 hill-${pictureTheme}-1`}></div>
-			<div className={`hill hill-2 hill-${pictureTheme}-1`}></div>
-			<div className={`hill hill-3 hill-${pictureTheme}-1`}></div>
-			<div className={`hill hill-4 hill-${pictureTheme}-2`}></div>
-			<div className={`hill hill-5 hill-${pictureTheme}-2`}></div>
-			<div className={`hill hill-6 hill-${pictureTheme}-2`}></div>	
+			<div className={`hill hill-1 hill-${pictureTheme.season}-${pictureTheme.cloudCover === "clear" ? '' : `${pictureTheme.cloudCover}-`}${pictureTheme.timeOfDay}-1`}></div>
+			<div className={`hill hill-2 hill-${pictureTheme.season}-${pictureTheme.cloudCover === "clear" ? '' : `${pictureTheme.cloudCover}-`}${pictureTheme.timeOfDay}-1`}></div>
+			<div className={`hill hill-3 hill-${pictureTheme.season}-${pictureTheme.cloudCover === "clear" ? '' : `${pictureTheme.cloudCover}-`}${pictureTheme.timeOfDay}-1`}></div>
+			<div className={`hill hill-4 hill-${pictureTheme.season}-${pictureTheme.cloudCover === "clear" ? '' : `${pictureTheme.cloudCover}-`}${pictureTheme.timeOfDay}-2`}></div>
+			<div className={`hill hill-5 hill-${pictureTheme.season}-${pictureTheme.cloudCover === "clear" ? '' : `${pictureTheme.cloudCover}-`}${pictureTheme.timeOfDay}-2`}></div>
+			<div className={`hill hill-6 hill-${pictureTheme.season}-${pictureTheme.cloudCover === "clear" ? '' : `${pictureTheme.cloudCover}-`}${pictureTheme.timeOfDay}-2`}></div>	
 		</>
 	)
 }

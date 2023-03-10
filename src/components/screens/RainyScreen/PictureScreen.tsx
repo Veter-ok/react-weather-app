@@ -8,10 +8,23 @@ import { WeatherDataContext } from "../../../context/WeatherDataProvider";
 import { WeatherOWAPIDataContext } from "../../../context/WeatherDataProviderOWAPI";
 import SnowFall from "../../UI/showFall/snowFall";
 
-export const PictureThemeContext = createContext<string>("")
+interface IPictureThemeContext {
+	timeOfDay: string,
+	cloudCover: string,
+	season: string
+}
+
+export const PictureThemeContext = createContext<IPictureThemeContext>({
+	timeOfDay: "day",
+	cloudCover: "clear",
+	season: "summer"
+})
 
 const PictureScreen:FC = () => {
 	const {currentlyWeather} = useContext(WeatherDataContext)
+	const [timeOfDay, setTimeOfDay] = useState("day")
+	const [cloudCover, setCloudcover] = useState("clear")
+	const [season, setSeason] = useState("summer")
 	//const {currentlyWeather} = useContext(WeatherOWAPIDataContext)
 	const [theme, setTheme] = useState("")
 
@@ -23,28 +36,33 @@ const PictureScreen:FC = () => {
 		let createTheme = ''
 
 		if (currentlyWeather.snowDepth > 0.05){
-			createTheme += 'winter-'
+			setSeason('winter')
 		}else{
-			createTheme += 'summer-'
+			setSeason('summer')
 		}
 
 		if (currentlyWeather.cloudcover <= 100 && currentlyWeather.cloudcover >= 90 ){
-			createTheme += 'overcast-'
+			setCloudcover('overcast')
 		}
 
-		if (time > 8 && time < 18){
-			createTheme += 'day'
-		}else if (time >= 18){
-			createTheme += 'night'
+		if (time > 8 && time <= 18){
+			setTimeOfDay('day')
+		}else if (time >= 19 && time < 20){
+			setTimeOfDay('evening')
+		}else if (time >= 20 || time <= 4){
+			setTimeOfDay('night')
+		}else{
+			setTimeOfDay('morning')
 		}
 		console.log(currentlyWeather, createTheme)
 		setTheme(createTheme)
 	}, [currentlyWeather, currentlyWeather.cloudcover, currentlyWeather.snowDepth])
 
+	console.log(timeOfDay)
 	
 	return (
-		<PictureThemeContext.Provider value={theme}>
-			<div className={`frame ${theme}`}>
+		<PictureThemeContext.Provider value={{timeOfDay: timeOfDay, cloudCover: cloudCover, season: season}}>
+			<div className={`frame ${timeOfDay} ${cloudCover}`}>
 				<Luminary hour={currentlyWeather.time ? Number(currentlyWeather.time.split(',')[1].split(':')[0]) : 0} cloudcover={currentlyWeather.cloudcover}/>
 				<Rainfall rain={currentlyWeather.rain}/>
 				<SnowFall snowFall={currentlyWeather.snowfall}/>
