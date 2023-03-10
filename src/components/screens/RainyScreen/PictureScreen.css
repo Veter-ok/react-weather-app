@@ -4,20 +4,9 @@
 	width: 80%;
 	left: 10%;
 	height: 400px;
+	background-color: rgb(65, 106, 218);
 	overflow: hidden;
 }
-
-/* .winter-night, .winter-overcast-night, .summer-overcast-night, .summer-night {
-	background-color: rgb(27, 34, 54);
-}
-
-.winter-overcast-day, .summer-overcast-day {
-	background-color: rgb(79, 83, 94);
-}
-
-.winter-day, .summer-day {
-	background-color: rgb(65, 106, 218);
-} */
 
 .morning {
 	background-color: rgb(154, 167, 206);

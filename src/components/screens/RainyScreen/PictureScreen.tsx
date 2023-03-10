@@ -26,14 +26,12 @@ const PictureScreen:FC = () => {
 	const [cloudCover, setCloudcover] = useState("clear")
 	const [season, setSeason] = useState("summer")
 	//const {currentlyWeather} = useContext(WeatherOWAPIDataContext)
-	const [theme, setTheme] = useState("")
 
 	useEffect(() => {
 		let time = 0
 		if (currentlyWeather.time){
 			time = Number(currentlyWeather.time.split(',')[1].split(':')[0])
 		}
-		let createTheme = ''
 
 		if (currentlyWeather.snowDepth > 0.05){
 			setSeason('winter')
@@ -43,6 +41,8 @@ const PictureScreen:FC = () => {
 
 		if (currentlyWeather.cloudcover <= 100 && currentlyWeather.cloudcover >= 90 ){
 			setCloudcover('overcast')
+		}else{
+			setCloudcover('clear')
 		}
 
 		if (time > 8 && time <= 18){
@@ -54,11 +54,9 @@ const PictureScreen:FC = () => {
 		}else{
 			setTimeOfDay('morning')
 		}
-		console.log(currentlyWeather, createTheme)
-		setTheme(createTheme)
-	}, [currentlyWeather, currentlyWeather.cloudcover, currentlyWeather.snowDepth])
+		console.log(currentlyWeather, currentlyWeather.time, timeOfDay, cloudCover, season)
+	}, [cloudCover, currentlyWeather, currentlyWeather.cloudcover, currentlyWeather.snowDepth, season, timeOfDay])
 
-	console.log(timeOfDay)
 	
 	return (
 		<PictureThemeContext.Provider value={{timeOfDay: timeOfDay, cloudCover: cloudCover, season: season}}>
