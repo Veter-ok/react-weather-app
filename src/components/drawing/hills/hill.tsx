@@ -1,6 +1,6 @@
 import React, {FunctionComponent as FC, useContext} from 'react'
 import './hill.css'
-import { PictureThemeContext } from '../../screens/RainyScreen/PictureScreen'
+import { PictureThemeContext } from '../../screens/PictureScreen'
 
 const Hill:FC = () => {
 	const pictureTheme = useContext(PictureThemeContext)

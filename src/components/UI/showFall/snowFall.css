@@ -1,7 +1,7 @@
 .snow {
 	position: absolute;
-	width: 10px;
-	height: 10px;
+	width: 5px;
+	height: 5px;
 	border-radius: 50%;
 	background-color: white;
 	animation-name: fall;

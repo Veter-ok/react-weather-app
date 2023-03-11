@@ -1,0 +1,20 @@
+.evening-sun {
+	width: 150px;
+	height: 150px;
+	position: absolute;
+	top: 200px;
+	left: 100px;
+	background-color: rgb(248, 204, 168);
+	box-shadow: 0 0 100px 0 rgb(245, 140, 102);
+	border-radius: 100%;
+	z-index: 5;
+	animation-name: sun-rising;
+	animation-duration: 2s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes sun-rising {
+	0% {
+		transform: translateY(100px);
+	}
+}

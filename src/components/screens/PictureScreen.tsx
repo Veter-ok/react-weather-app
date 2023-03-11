@@ -1,12 +1,12 @@
 import React, {FunctionComponent as FC, useContext, useEffect, useState, createContext} from "react";
 import './PictureScreen.css'
-import Rainfall from "../../UI/rainfall/rainfall";
-import Luminary from "../../UI/luminary/luminary";
-import Clouds from "../../UI/clouds/clouds";
-import Hill from "../../drawing/hills/hill";
-import { WeatherDataContext } from "../../../context/WeatherDataProvider";
-import { WeatherOWAPIDataContext } from "../../../context/WeatherDataProviderOWAPI";
-import SnowFall from "../../UI/showFall/snowFall";
+import Rainfall from "../UI/rainfall/rainfall";
+import Luminary from "../UI/luminary/luminary";
+import Clouds from "../UI/clouds/clouds";
+import Hill from "../drawing/hills/hill";
+import { WeatherDataContext } from "../../context/WeatherDataProvider";
+import { WeatherOWAPIDataContext } from "../../context/WeatherDataProviderOWAPI";
+import SnowFall from "../UI/showFall/snowFall";
 
 interface IPictureThemeContext {
 	timeOfDay: string,
@@ -45,14 +45,15 @@ const PictureScreen:FC = () => {
 			setCloudcover('clear')
 		}
 
-		if (time > 8 && time <= 18){
-			setTimeOfDay('day')
-		}else if (time >= 19 && time < 20){
-			setTimeOfDay('evening')
-		}else if (time >= 20 || time <= 4){
-			setTimeOfDay('night')
-		}else{
+		if (time > 5 && time <= 8){
 			setTimeOfDay('morning')
+		}
+		else if (time > 8 && time <= 17){
+			setTimeOfDay('day')
+		}else if (time > 17 && time < 19){
+			setTimeOfDay('evening')
+		}else{
+			setTimeOfDay('night')
 		}
 		console.log(currentlyWeather, currentlyWeather.time, timeOfDay, cloudCover, season)
 	}, [cloudCover, currentlyWeather, currentlyWeather.cloudcover, currentlyWeather.snowDepth, season, timeOfDay])
@@ -61,7 +62,7 @@ const PictureScreen:FC = () => {
 	return (
 		<PictureThemeContext.Provider value={{timeOfDay: timeOfDay, cloudCover: cloudCover, season: season}}>
 			<div className={`frame ${timeOfDay} ${cloudCover}`}>
-				<Luminary hour={currentlyWeather.time ? Number(currentlyWeather.time.split(',')[1].split(':')[0]) : 0} cloudcover={currentlyWeather.cloudcover}/>
+				<Luminary timeOfDay={timeOfDay} cloudcover={currentlyWeather.cloudcover}/>
 				<Rainfall rain={currentlyWeather.rain}/>
 				<SnowFall snowFall={currentlyWeather.snowfall}/>
 				<Clouds/>

@@ -48,6 +48,7 @@ const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({coordinate
 		const URL = `${OPEN_WEATHER_API_URL}lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=hourly,daily&appid=347a140363f071901c55aed50511ccf7`
 		fetch(URL).then(response => {
 			response.json().then(data => {
+				console.log(data)
 				setWeatherData({
 					currentlyWeather: {
 						time: new Date().toLocaleString("ru-RU", {timeZone: data.timezone}),

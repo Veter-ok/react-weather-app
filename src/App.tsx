@@ -1,5 +1,5 @@
 import './App.css';
-import PictureScreen from './components/screens/RainyScreen/PictureScreen';
+import PictureScreen from './components/screens/PictureScreen';
 import {DarkModeProvider} from './context/DarkModeProvider';
 import Content from './components/content/content';
 import { WeatherDataProvider } from './context/WeatherDataProvider';
