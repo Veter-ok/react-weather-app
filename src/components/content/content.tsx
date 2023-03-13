@@ -1,19 +1,21 @@
 import React, {FunctionComponent as FC, useContext } from "react";
 import './content.css'
-import WeatherDataBlock from "../UI/weatherDataBlock/weatherDataBlock";
+import WeatherMainBlock from "../UI/weatherMainBlock/weatherMainBlock";
 import { DarkModeContext } from "../../context/DarkModeProvider";
 import { CityType } from "../../types/CityTypes";
+import WeatherBlock from "../UI/weatherBlock/weatherBlock";
 
 interface IPropsContent {
 	city: CityType
 }
 
-const Content:FC<IPropsContent> = ({city}) => {
+export const Content:FC<IPropsContent> = ({city}) => {
 	const darkMode = useContext(DarkModeContext)
 
 	return (
 		<div className={darkMode ? "Content Content-dark" : "Content Content-light"}>
-			<WeatherDataBlock city={city}/>
+			<WeatherMainBlock city={city}/>
+			<WeatherBlock/>
 		</div>
 	)
 }

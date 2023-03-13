@@ -41,7 +41,15 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 			snowfall: 0,
 			snowDepth: 0
 		},
-		hourlyWeather: null,
+		hourlyWeather: {
+			times: [],
+			temperatures: [],
+			humidity: [],
+			windSpeed: [],
+			cloudcover: [],
+			rain: [],
+			snowfall: [],
+		},
 	})
 
 	useEffect(() => {

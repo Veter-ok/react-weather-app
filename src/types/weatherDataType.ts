@@ -1,12 +1,12 @@
 export interface IweatherData {
 	currentlyWeather: ICurrentlyWeatherData,
-	hourlyWeather: IHourlyWeatherData | null
+	hourlyWeather: IHourlyWeatherData
 
 }
 
 export interface IweatherDataOWAPI {
 	currentlyWeather: ICurrentlyWeatherData,
-	hourlyWeather: IHourlyWeatherData | null
+	hourlyWeather: IHourlyWeatherData
 }
 
 export interface IHourlyWeatherData {

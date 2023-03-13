@@ -4,3 +4,8 @@ export const formatDate = (date: Date):string => {
 	const currentlyDate = `${formattedDate}T${formattedTime}`
 	return currentlyDate
 }
+
+export const convertStringToDate = (date: string):Date => {
+	const FormatedDate = new Date(date)
+	return FormatedDate
+}

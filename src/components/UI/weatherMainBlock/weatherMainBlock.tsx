@@ -1,5 +1,5 @@
 import {FunctionComponent as FC, useContext} from "react";
-import './weatherDataBlock.css'
+import './weatherMainBlock.css'
 import { DarkModeContext } from "../../../context/DarkModeProvider";
 import { WeatherOWAPIDataContext } from "../../../context/WeatherDataProviderOWAPI";
 import { CityType } from "../../../types/CityTypes";
@@ -9,7 +9,7 @@ interface IPropsContent {
 }
 
 
-const WeatherDataBlock:FC<IPropsContent> = ({city}) => {
+export const WeatherMainBlock:FC<IPropsContent> = ({city}) => {
 	const {currentlyWeather} = useContext(WeatherOWAPIDataContext)
 	const darkMode = useContext(DarkModeContext)
 
@@ -31,4 +31,4 @@ const WeatherDataBlock:FC<IPropsContent> = ({city}) => {
 	)
 }
 
-export default WeatherDataBlock
+export default WeatherMainBlock

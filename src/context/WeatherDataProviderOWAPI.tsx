@@ -41,7 +41,15 @@ const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({coordinate
 			snowfall: 0,
 			snowDepth: 0
 		},
-		hourlyWeather: null
+		hourlyWeather: {
+			times: [],
+			temperatures: [],
+			humidity: [],
+			windSpeed: [],
+			cloudcover: [],
+			rain: [],
+			snowfall: [],
+		}
 	})
 
 	useEffect(() => {
@@ -60,7 +68,15 @@ const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({coordinate
 						snowfall: data.current.snow === undefined ? 0 : data.current.snow["1h"],
 						snowDepth: 0
 					},
-					hourlyWeather: null
+					hourlyWeather: {
+						times: [],
+						temperatures: [],
+						humidity: [],
+						windSpeed: [],
+						cloudcover: [],
+						rain: [],
+						snowfall: [],
+					}
 				})
 			})
 		})
