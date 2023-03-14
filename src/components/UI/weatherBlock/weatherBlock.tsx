@@ -5,24 +5,27 @@ import { WeatherOWAPIDataContext } from "../../../context/WeatherDataProviderOWA
 import { WeatherDataContext} from "../../../context/WeatherDataProvider";
 import { convertStringToDate } from "../../../utils/FormatDate";
 
-export const WeatherBlock:FC = () => {
+export const WeatherHourlyBlock:FC = () => {
 	//const {hourlyWeather} = useContext(WeatherOWAPIDataContext)
-	const {hourlyWeather} = useContext(WeatherDataContext)
+	const {currentlyWeather, hourlyWeather} = useContext(WeatherDataContext)
+	const firstIndex = currentlyWeather.time ? Number(currentlyWeather.time.split(", ")[1].split(":")[0]) + 1 : 0
 	const darkMode = useContext(DarkModeContext)
 
 	const convertTime = (date: Date):string => `${date.getHours()}:00`
 
+	console.log(hourlyWeather.temperatures.length, hourlyWeather.temperatures.slice(firstIndex, firstIndex + 1).length)
+
 	return (
 		<div className="blocks">
-			{hourlyWeather.temperatures.splice(1, 6).map((value, index) => 
-				<div className={darkMode ? "mini-block block-dark" : "mini-block block-light"}>
+			{hourlyWeather.temperatures.slice(firstIndex, firstIndex + 6).map((value, index) => 
+				<div key={index} className={darkMode ? "mini-block block-dark" : "mini-block block-light"}>
 					<div className="mini-block-1">
-						<div className="mini-block-date">{convertTime(convertStringToDate(hourlyWeather.times[index]))}</div>
-						<div className="mini-block-temperature">{hourlyWeather.temperatures[index]}°C</div>
+						<div className="mini-block-date">{convertTime(convertStringToDate(hourlyWeather.times[firstIndex + index]))}</div>
+						<div className="mini-block-temperature">{hourlyWeather.temperatures[firstIndex + index]}°C</div>
 					</div>
 					<div className="mini-block-2">
-						<div className="wind">Wind: E {hourlyWeather.windSpeed[index]}km/h</div>
-						<div className="Humidity">Humidity: {hourlyWeather.humidity[index]}%</div>
+						<div className="wind">Wind: E {hourlyWeather.windSpeed[firstIndex + index]}km/h</div>
+						<div className="Humidity">Humidity: {hourlyWeather.humidity[firstIndex + index]}%</div>
 					</div>
 				</div>
 			)}
@@ -30,4 +33,4 @@ export const WeatherBlock:FC = () => {
 	)
 }
 
-export default WeatherBlock
+export default WeatherHourlyBlock

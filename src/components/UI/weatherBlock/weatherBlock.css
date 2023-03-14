@@ -2,11 +2,12 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 	grid-template-rows: 1fr;
+	gap: 20px;
 }
 
 .mini-block {
-	margin: 10px;
-	height: 200px;
+	margin: 10px 0px;
+	height: 100%;
 	border-radius: 10px;
 	box-shadow: 4px 8px 16px 0 rgba(0,0,0,0.1);
 	background-color: white;
@@ -52,4 +53,23 @@
 	font-size: 16px;
 	display: block;
 	margin: auto;
+}
+
+@media screen and (max-width: 1000px){
+	.blocks {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+	.mini-block {
+		height: 90%;
+	}
+}
+
+
+@media screen and (max-width: 600px) {
+	.blocks {
+		grid-template-columns: 1fr 1fr;
+	}
+	.mini-block {
+		height: 90%;
+	}
 }

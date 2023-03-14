@@ -3,7 +3,7 @@ import './content.css'
 import WeatherMainBlock from "../UI/weatherMainBlock/weatherMainBlock";
 import { DarkModeContext } from "../../context/DarkModeProvider";
 import { CityType } from "../../types/CityTypes";
-import WeatherBlock from "../UI/weatherBlock/weatherBlock";
+import WeatherHourlyBlock from "../UI/weatherBlock/weatherBlock";
 
 interface IPropsContent {
 	city: CityType
@@ -15,7 +15,7 @@ export const Content:FC<IPropsContent> = ({city}) => {
 	return (
 		<div className={darkMode ? "Content Content-dark" : "Content Content-light"}>
 			<WeatherMainBlock city={city}/>
-			<WeatherBlock/>
+			<WeatherHourlyBlock/>
 		</div>
 	)
 }

@@ -9,9 +9,9 @@ import { WeatherOWAPIDataContext } from "../../context/WeatherDataProviderOWAPI"
 import SnowFall from "../UI/showFall/snowFall";
 
 interface IPictureThemeContext {
-	timeOfDay: string,
-	cloudCover: string,
-	season: string
+	timeOfDay: "morning" | "day"| "evening" | "night",
+	cloudCover: "clear" | "overcast",
+	season: "winter" | "summer"
 }
 
 export const PictureThemeContext = createContext<IPictureThemeContext>({
@@ -22,9 +22,9 @@ export const PictureThemeContext = createContext<IPictureThemeContext>({
 
 const PictureScreen:FC = () => {
 	const {currentlyWeather} = useContext(WeatherDataContext)
-	const [timeOfDay, setTimeOfDay] = useState("day")
-	const [cloudCover, setCloudcover] = useState("clear")
-	const [season, setSeason] = useState("summer")
+	const [timeOfDay, setTimeOfDay] = useState<"morning" | "day"| "evening" | "night">("day")
+	const [cloudCover, setCloudcover] = useState<"clear" | "overcast">("clear")
+	const [season, setSeason] = useState< "winter" | "summer">("summer")
 	//const {currentlyWeather} = useContext(WeatherOWAPIDataContext)
 
 	useEffect(() => {
