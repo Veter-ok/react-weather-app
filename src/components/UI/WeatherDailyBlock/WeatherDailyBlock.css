@@ -1,11 +1,12 @@
 .blocks {
 	display: grid;
+	margin: 10px 0px;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 	grid-template-rows: 1fr;
 	gap: 20px;
 }
 
-.mini-block {
+.daily-block {
 	margin: 10px 0px;
 	height: 100%;
 	border-radius: 10px;
@@ -13,7 +14,7 @@
 	background-color: white;
 }
 
-.mini-block:hover {
+.daily-block:hover {
 	box-shadow: 4px 8px 15px 0 rgba(0,0,0,0.3);
 }
 
@@ -27,39 +28,33 @@
 	color: #000;
 }
 
-.mini-block-date {
-	font-size: 30px;
+.daily-block-date {
+	font-size: 28px;
 	margin: 15px;
 }
 
-.mini-block-temperature {
+.daily-block-temperature {
 	font-size: 25px;
 }
 
-.mini-block-1 {
+.daily-block-1 {
 	text-align: center;
 	display: block;
 	margin: auto;
 }
 
-.mini-block-2 {
+.daily-block-2 {
 	font-size: 16px;
 	text-align: center;
 	display: block;
 	margin: 25px auto;
 }
 
-.block-3 {
-	font-size: 16px;
-	display: block;
-	margin: auto;
-}
-
 @media screen and (max-width: 1000px){
 	.blocks {
 		grid-template-columns: 1fr 1fr 1fr;
 	}
-	.mini-block {
+	.daily-block {
 		height: 90%;
 	}
 }

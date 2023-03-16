@@ -1,5 +1,5 @@
 import React, {createContext, FunctionComponent as FC, useEffect, useState} from "react"; 
-import { IweatherData } from "../types/weatherDataType";
+import { IDailyWeather, IweatherData } from "../types/weatherDataType";
 import { OPEN_METEO_API_URL } from "../api/api";
 
 interface IWeatherDataProviderProps {
@@ -7,7 +7,11 @@ interface IWeatherDataProviderProps {
 	children: JSX.Element
 }
 
-const WeatherDataContext = createContext<IweatherData>({
+interface IFullWeatherData extends IweatherData {
+	dailyWeather: IDailyWeather
+}
+
+const WeatherDataContext = createContext<IFullWeatherData>({
 	currentlyWeather: {
 		time: '',
 		temperature: 0,
@@ -26,11 +30,19 @@ const WeatherDataContext = createContext<IweatherData>({
 		cloudcover: [],
 		rain: [],
 		snowfall: [],
-	} || null
+	},
+	dailyWeather: {
+		times: [],
+		temperatures_max: [],
+		temperatures_min: [],
+		windspeed: [],
+		rain_sum: [],
+		snowfall_sum: [],
+	}
 })
 
 const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, children}) => {
-	const [weatherData, setWeatherData] = useState<IweatherData>({
+	const [weatherData, setWeatherData] = useState<IFullWeatherData>({
 		currentlyWeather: {
 			time: '',
 			temperature: 0,
@@ -50,10 +62,18 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 			rain: [],
 			snowfall: [],
 		},
+		dailyWeather: {
+			times: [],
+			temperatures_max: [],
+			temperatures_min: [],
+			windspeed: [],
+			rain_sum: [],
+			snowfall_sum: [],
+		}
 	})
 
 	useEffect(() => {
-		const URL = `${OPEN_METEO_API_URL}latitude=${coordinates.lat}&longitude=${coordinates.lon}&hourly=temperature_2m,relativehumidity_2m,cloudcover,windspeed_10m,snowfall,rain,snow_depth&current_weather=true&timezone=auto`
+		const URL = `${OPEN_METEO_API_URL}latitude=${coordinates.lat}&longitude=${coordinates.lon}&hourly=temperature_2m,relativehumidity_2m,cloudcover,windspeed_10m,snowfall,rain,snow_depth&current_weather=true&daily=temperature_2m_max,temperature_2m_min,rain_sum,snowfall_sum,windspeed_10m_max&timezone=auto&timezone=auto`
 		fetch(URL).then((response) => {
 			response.json().then((data) => {
 				const index = data.hourly.time.indexOf(data["current_weather"].time)
@@ -76,7 +96,15 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 						cloudcover: data.hourly.cloudcover,
 						rain: data.hourly.rain,
 						snowfall: data.hourly.snowfall
-					}
+					},
+					dailyWeather: {
+						times: data.daily.time,
+						temperatures_max: data.daily.temperature_2m_max,
+						temperatures_min: data.daily.temperature_2m_min,
+						windspeed: data.daily.windspeed_10m_max,
+						rain_sum: data.daily.rain_sum,
+						snowfall_sum: data.daily.snowfall_sum,
+					}		
 				})
 			})
 		}).catch((error) => {

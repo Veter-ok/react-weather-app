@@ -29,3 +29,12 @@ export interface ICurrentlyWeatherData {
 	snowfall: number
 	snowDepth: number
 }
+
+export interface IDailyWeather {
+	times: string[]
+	temperatures_max: number[]
+	temperatures_min: number[]
+	windspeed: number[]
+	rain_sum: number[]
+	snowfall_sum: number[]
+}
