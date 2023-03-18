@@ -19,7 +19,6 @@ const Luminary:FC<IPropsLuminary> = ({timeOfDay, cloudcover}) => {
 			}else if (timeOfDay === "morning"){
 				return <MorningSun/>
 			}else{
-				console.log(timeOfDay)
 				return <EveningSun/>
 			}
 		}else{

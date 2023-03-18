@@ -7,8 +7,6 @@ export const WeatherDailyBlock:FC = () => {
 	const {dailyWeather} = useContext(WeatherDataContext)
 	const darkMode = useContext(DarkModeContext)
 
-	console.log(dailyWeather)
-
 	return (
 		<div className="blocks">
 			{dailyWeather.temperatures_max.slice(0, 6).map((value, index) => 
