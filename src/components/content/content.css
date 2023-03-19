@@ -1,4 +1,4 @@
-.Content {
+.content {
 	position: absolute;
 	top: 400px;
 	left: 5%;
@@ -6,10 +6,10 @@
 	height: 100%;
 }
 
-.Content-light {
+.content-light {
 	background-color: #fff;
 }
 
-/* .Content-dark {
+.content-dark {
 	background-color: #000;
-} */
+}

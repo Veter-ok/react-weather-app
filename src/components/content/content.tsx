@@ -12,9 +12,9 @@ interface IPropsContent {
 
 export const Content:FC<IPropsContent> = ({city}) => {
 	const darkMode = useContext(DarkModeContext)
-	console.log(city)
+
 	return (
-		<div className={darkMode ? "Content Content-dark" : "Content Content-light"}>
+		<div className={darkMode ? "content Content-dark" : "content Content-light"}>
 			<WeatherMainBlock city={city}/>
 			<h2>Hourly Weather</h2>
 			<WeatherHourlyBlock/>

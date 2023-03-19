@@ -1,3 +1,4 @@
+import { GEO_OPTIONS } from '../../../api/api';
 import { CityType } from '../../../types/CityTypes';
 import './SearchCity.css'
 import React, {FunctionComponent as FC, useState} from "react";
@@ -35,14 +36,7 @@ export const SearchCity:FC<IPropsSearchCity> = ({setCity}) => {
 	}
 
 	const sendRequest = async (value: string) => {
-		const options = {
-			method: 'GET',
-			headers: {
-				'X-RapidAPI-Key': 'a011aa4a34msh0601bbc6c6ff814p1989d0jsnba609c677f28',
-				'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
-			}
-		};
-		await fetch(`https://wft-geo-db.p.rapidapi.com/v1/geo/cities?limit=10&minPopulation=20000&namePrefix=${value}`, options)
+		await fetch(`https://wft-geo-db.p.rapidapi.com/v1/geo/cities?limit=10&minPopulation=20000&namePrefix=${value}`, GEO_OPTIONS)
 			.then(response => response.json())
 			.then(response => {
 				if (response.data !== undefined){

@@ -5,7 +5,6 @@ import Luminary from "../UI/luminary/luminary";
 import Clouds from "../UI/clouds/clouds";
 import Hill from "../drawing/hills/hill";
 import { WeatherDataContext } from "../../context/WeatherDataProvider";
-import { WeatherOWAPIDataContext } from "../../context/WeatherDataProviderOWAPI";
 import SnowFall from "../UI/showFall/snowFall";
 
 interface IPictureThemeContext {
@@ -25,7 +24,6 @@ const PictureScreen:FC = () => {
 	const [timeOfDay, setTimeOfDay] = useState<"morning" | "day"| "evening" | "night">("day")
 	const [cloudCover, setCloudcover] = useState<"clear" | "overcast">("clear")
 	const [season, setSeason] = useState< "winter" | "summer">("summer")
-	//const {currentlyWeather} = useContext(WeatherOWAPIDataContext)
 
 	useEffect(() => {
 		let time = 0
