@@ -59,6 +59,7 @@ const PictureScreen:FC = () => {
 	
 	return (
 		<PictureThemeContext.Provider value={{timeOfDay: timeOfDay, cloudCover: cloudCover, season: season}}>
+			<div className="time">{currentlyWeather.time}</div>
 			<div className={`frame ${timeOfDay} ${cloudCover}`}>
 				<Luminary timeOfDay={timeOfDay} cloudcover={currentlyWeather.cloudcover}/>
 				<Rainfall rain={currentlyWeather.rain}/>

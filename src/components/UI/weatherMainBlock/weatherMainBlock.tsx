@@ -24,8 +24,8 @@ export const WeatherMainBlock:FC<IPropsContent> = ({city}) => {
 				<div className="Humidity">Humidity: {currentlyWeather.humidity}%</div>
 			</div>
 			<div className="block-3">
-				<div className="day-1">Tue <strong> 21°/9°</strong></div>
-				<div className="day-2">Wed <strong> 23°/10°</strong></div>
+				<div className="day-1">cloudcover <strong>{currentlyWeather.cloudcover}%</strong></div>
+				{/* <div className="day-2">Wed <strong>{currentlyWeather.}</strong></div> */}
 			</div>
 		</div>
 	)
