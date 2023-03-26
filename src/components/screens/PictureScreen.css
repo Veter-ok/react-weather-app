@@ -4,7 +4,31 @@
 	color: white;
 	z-index: 1000;
 	top: 10px;
-	right: 160px;
+	right: 12%;
+}
+
+.city {
+	position: absolute;
+	font-size: 28px;
+	color: white;
+	z-index: 10000;
+	top: 290px;
+	width: 12em;
+	height: 1em;
+	overflow: hidden;
+	text-align: center;
+	left: 4.6em;
+}
+
+.currently-temperature {
+	position: absolute;
+	font-size: 24px;
+	color: white;
+	z-index: 10000;
+	top: 330px;
+	text-align: center;
+	width: 5em;
+	left: 10em;
 }
 
 
@@ -38,10 +62,26 @@
 	background-color: rgb(27, 34, 54);
 }
 
+
+@media screen and (max-width: 1200px){
+	.city {
+		left: 3em;
+	}
+	.currently-temperature {
+		left: 7.6em;
+	}
+}
+
 @media screen and (max-width: 1000px){
 	.frame {
 		left: 5%;
 		width: 90%;
+	}
+	.city {
+		left: 0em;
+	}
+	.currently-temperature {
+		left: 4.6em;
 	}
 }
 
@@ -49,5 +89,22 @@
 	.frame {
 		left: 1%;
 		width: 98%;
+	}
+	.time {
+		right: 10%;
+	}
+	.city, .currently-temperature {
+		display: none;
+	}
+}
+
+
+@media screen and (max-width: 400px){
+	.frame {
+		left: 0%;
+		width: 100%;
+	}
+	.time {
+		right: 7%;
 	}
 }

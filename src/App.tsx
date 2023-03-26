@@ -20,7 +20,7 @@ function App() {
           <WeatherDataProvider coordinates={city.coordinates}>
             <DarkModeProvider>
               <>
-                <PictureScreen/>
+                <PictureScreen city={city}/>
                 <Content city={city}/>
               </>
             </DarkModeProvider>

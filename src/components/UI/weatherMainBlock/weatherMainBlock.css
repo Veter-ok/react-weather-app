@@ -46,3 +46,9 @@
 	display: block;
 	margin: auto;
 }
+
+@media screen and (min-width: 700px){
+	.block {
+		display: none;
+	}
+}

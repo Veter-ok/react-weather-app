@@ -6,6 +6,7 @@ import Clouds from "../UI/clouds/clouds";
 import Hill from "../drawing/hills/hill";
 import { WeatherDataContext } from "../../context/WeatherDataProvider";
 import SnowFall from "../UI/showFall/snowFall";
+import { CityType } from "../../types/CityTypes";
 
 interface IPictureThemeContext {
 	timeOfDay: "morning" | "day"| "evening" | "night",
@@ -19,7 +20,11 @@ export const PictureThemeContext = createContext<IPictureThemeContext>({
 	season: "summer"
 })
 
-const PictureScreen:FC = () => {
+interface IPropsPictureScreen {
+	city: CityType
+}
+
+const PictureScreen:FC<IPropsPictureScreen> = ({city}) => {
 	const {currentlyWeather} = useContext(WeatherDataContext)
 	const [timeOfDay, setTimeOfDay] = useState<"morning" | "day"| "evening" | "night">("day")
 	const [cloudCover, setCloudcover] = useState<"clear" | "overcast">("clear")
@@ -56,10 +61,18 @@ const PictureScreen:FC = () => {
 		console.log(currentlyWeather, currentlyWeather.time, timeOfDay, cloudCover, season)
 	}, [cloudCover, currentlyWeather, currentlyWeather.cloudcover, currentlyWeather.snowDepth, season, timeOfDay])
 
+	const formatDate = (date: string) => {
+		if (date){
+			const [hours, minute] = date.split(' ')[1].split(':')
+			return `${hours}:${minute}`
+		}
+	}
 	
 	return (
 		<PictureThemeContext.Provider value={{timeOfDay: timeOfDay, cloudCover: cloudCover, season: season}}>
-			<div className="time">{currentlyWeather.time}</div>
+			<div className="time">{formatDate(currentlyWeather.time)}</div>
+			<div className="city">{city.cityName}</div>
+			<div className="currently-temperature">{currentlyWeather.temperature}°C</div>
 			<div className={`frame ${timeOfDay} ${cloudCover}`}>
 				<Luminary timeOfDay={timeOfDay} cloudcover={currentlyWeather.cloudcover}/>
 				<Rainfall rain={currentlyWeather.rain}/>
