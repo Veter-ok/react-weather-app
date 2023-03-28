@@ -21,11 +21,10 @@ export const WeatherMainBlock:FC<IPropsContent> = ({city}) => {
 			</div>
 			<div className="block-2">
 				<div className="wind">Wind: E {currentlyWeather.windSpeed}km/h</div>
-				<div className="Humidity">Humidity: {currentlyWeather.humidity}%</div>
+				<div className="humidity">Humidity: {currentlyWeather.humidity}%</div>
+				<div className="cloudcover">Cloudcover {currentlyWeather.cloudcover}%</div>
 			</div>
 			<div className="block-3">
-				<div className="day-1">cloudcover <strong>{currentlyWeather.cloudcover}%</strong></div>
-				{/* <div className="day-2">Wed <strong>{currentlyWeather.}</strong></div> */}
 			</div>
 		</div>
 	)

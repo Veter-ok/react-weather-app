@@ -1,6 +1,6 @@
 .block {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr;
 	grid-template-rows: 1fr;
 	width: 100%;
 	height: 200px;
@@ -26,6 +26,10 @@
 	font-size: 35px;
 }
 
+.humidity {
+	margin: 8px 0px;
+}
+
 .block-1 {
 	margin-left: 50px;
 	text-align: center;
@@ -40,15 +44,27 @@
 	margin: auto;
 }
 
-.block-3 {
-	font-size: 16px;
-	margin-left: 60px;
-	display: block;
-	margin: auto;
-}
 
 @media screen and (min-width: 700px){
 	.block {
 		display: none;
+	}
+}
+
+@media screen and (max-width: 400px){
+	.block {
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr;
+		height: 200px;
+	}
+	.block-2 {
+		font-size: 15px;
+		margin-bottom: 10px;
+	}
+	.cityName {
+		font-size: 28px;
+	}
+	.temperature {
+		font-size: 28px;
 	}
 }

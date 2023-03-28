@@ -1,6 +1,6 @@
 .hill {
-	width: 50%;
-	height: 60%;
+	width: 600px;
+	height: 350px;
 	border-radius: 50%;
 	position: absolute;
 }
@@ -92,4 +92,54 @@
 	top: 70%;
 	left: 70%;
 	z-index: 15;
+}
+
+@media screen and (max-width: 1200px){
+	.hill {
+		width: 500px;
+	}
+}
+
+@media screen and (max-width: 1000px){
+	.hill {
+		width: 400px;
+	}
+}
+
+@media screen and (max-width: 700px){
+	.hill {
+		width: 400px;
+	}
+	.hill-1, .hill-2 {
+		top: 60%;
+	}
+	.hill-3 {
+		top: 67%;
+	}
+	.hill-4, .hill-5 {
+		top: 70%;
+	}
+	.hill-6 {
+		top: 75%;
+	}
+}
+
+
+@media screen and (max-width: 400px){
+	.hill {
+		width: 200px;
+		height: 150px;
+	}
+	.hill-1, .hill-2 {
+		top: 65%;
+	}
+	.hill-3 {
+		top: 72%;
+	}
+	.hill-4, .hill-5 {
+		top: 75%;
+	}
+	.hill-6 {
+		top: 80%;
+	}
 }
