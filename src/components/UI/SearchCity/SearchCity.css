@@ -28,14 +28,45 @@ input {
 }
 
 .cityBlock {
-	margin: 5px;
 	height: 30px;
 	width: 95%;
-	padding: 5px;
+	padding: 10px;
 	border-radius: 10px;
 	overflow: hidden;
 }
 
 .cityBlock:hover {
 	background-color: rgb(209, 209, 217);
+}
+
+@media screen and (max-width: 700px){
+	input {
+		width: 40%;
+		left: 30%;
+	}
+	.results {
+		top: 80px;
+		width: 40%;
+		left: 30%;
+	}
+}
+
+
+@media screen and (max-width: 400px){
+	input {
+		font-size: 14px;
+		top: 30px;
+		width: 40%;
+		left: 30%;
+	}
+	.results {
+		font-size: 14px;
+		top: 70px;
+		width: 40%;
+		left: 30%;
+	}
+	.cityBlock {
+		padding: 5px;
+		height: 25px;
+	}
 }

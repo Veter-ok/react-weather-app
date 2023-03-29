@@ -13,3 +13,16 @@
 .content-dark {
 	background-color: #000;
 }
+
+@media screen and (max-width: 700px){
+	.content {
+		top: 350px;
+	}
+}
+
+
+@media screen and (max-width: 400px){
+	.content {
+		top: 300px;
+	}
+}

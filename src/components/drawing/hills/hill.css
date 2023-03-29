@@ -102,7 +102,19 @@
 
 @media screen and (max-width: 1000px){
 	.hill {
-		width: 400px;
+		width: 500px;
+	}
+	.hill-1, .hill-2 {
+		top: 58%;
+	}
+	.hill-3 {
+		top: 65%;
+	}
+	.hill-4, .hill-5 {
+		top: 68%;
+	}
+	.hill-6 {
+		top: 73%;
 	}
 }
 

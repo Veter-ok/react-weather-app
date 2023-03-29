@@ -18,3 +18,11 @@
 		transform: translateY(200px);
 	}
 }
+
+@media screen and (max-width: 400px) {
+	.sun {
+		width: 60px;
+		height: 60px;
+		left: 40px;
+	}
+}
