@@ -46,7 +46,7 @@
 	font-size: 16px;
 	text-align: center;
 	display: block;
-	margin: 25px auto;
+	margin: 22px auto;
 }
 
 @media screen and (max-width: 1000px){
@@ -65,5 +65,16 @@
 	}
 	.mini-block {
 		height: 90%;
+	}
+	.hourly-block-date {
+		font-size: 25px;
+		margin: 10px;
+	}
+	.hourly-block-temperature {
+		font-size: 20px;
+	}
+	.hourly-block-2 {
+		font-size: 14px;
+		margin: 18px auto;
 	}
 }

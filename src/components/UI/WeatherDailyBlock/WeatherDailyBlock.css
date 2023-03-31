@@ -67,4 +67,15 @@
 	.mini-block {
 		height: 90%;
 	}
+	.daily-block-date {
+		font-size: 25px;
+		margin: 10px;
+	}
+	.daily-block-temperature {
+		font-size: 20px;
+	}
+	.daily-block-2 {
+		font-size: 14px;
+		margin: 18px auto;
+	}
 }
