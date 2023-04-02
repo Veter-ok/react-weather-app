@@ -14,7 +14,7 @@ export const WeatherMainBlock:FC<IPropsContent> = ({city}) => {
 	const darkMode = useContext(DarkModeContext)
 
 	return (
-		<div className={darkMode ? "block block-dark" : "block block-light"}>
+		<div className={darkMode ? "block block-dark" : "block main-block-light"}>
 			<div className="block-1">
 				<div className="cityName">{city.cityName}</div>
 				<div className="temperature">{currentlyWeather.temperature}°C</div>

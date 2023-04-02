@@ -15,7 +15,14 @@ const Clouds:FC = () => {
 
 	return (
 		<>
-			{getClouds()}
+			{/* {getClouds()} */}
+			<div className="clouds" style={{position: 'absolute', width:"1000px", height:"400px"}}>
+				<div style={{position: 'absolute', left:"19%", top:"5%"}}><Cloud/></div>
+				<div style={{position: 'absolute', left:"30%", top:"30%"}}><Cloud/></div>
+				<div style={{position: 'absolute', left:"45%", top:"22%"}}><Cloud/></div>
+				<div style={{position: 'absolute', left:"62%", top:"35%"}}><Cloud/></div>
+				<div style={{position: 'absolute', left:"78%", top:"15%"}}><Cloud/></div>
+			</div>
 		</>
 	)
 }
