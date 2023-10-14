@@ -31,7 +31,7 @@ const WeatherOWAPIDataContext = createContext<IweatherDataOWAPI>({
 })
 
 const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({city, children}) => {
-	const {cityName, coordinates, trueCoordinates} = city
+	const {cityName, coordinates} = city
 	const [currentlyWeather, setCurrentlyWeather] = useState<ICurrentlyWeatherData>({
 			time: '',
 			temperature: 0,
@@ -55,28 +55,8 @@ const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({city, chil
 	useEffect(() => {
 		let url_onecall = `${OPEN_WEATHER_API_URL}onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=hourly,daily&appid=${process.env.REACT_APP_OW_API}`
 		let url_forecast = `${OPEN_WEATHER_API_URL}forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=hourly,daily&appid=${process.env.REACT_APP_OW_API}`
-		if (!trueCoordinates){
-			url_onecall = `${OPEN_WEATHER_API_URL}onecall?q=${cityName}&exclude=hourly,daily&appid=${process.env.REACT_APP_OW_API}`
-			url_forecast = `${OPEN_WEATHER_API_URL}forecast?q=${cityName}&exclude=hourly,daily&appid=${process.env.REACT_APP_OW_API}`
-		}
-		fetch(url_onecall).then(response => {
-			response.json().then(data => {
-				console.log(data)
-				setCurrentlyWeather({
-					time: new Date().toLocaleString("ru-RU", {timeZone: data.timezone}),
-					temperature: Math.round(data.current.temp - 273.15),
-					humidity: data.current.humidity,
-					windSpeed: data.current.wind_speed,
-					cloudcover: data.current.clouds,
-					rain: 0,
-					snowfall: data.current.snow === undefined ? 0 : data.current.snow["1h"],
-					snowDepth: 0
-				})
-			})
-		})
 		fetch(url_forecast).then(response => {
 			response.json().then(data => {
-				console.log(data)
 				const newData:IHourlyWeatherData = {times: [], temperatures: [], humidity: [], windSpeed: [], cloudcover: [], rain: [], snowfall: []}
 				data.list.forEach((day: any) => {
 					newData.times.push(day.dt_txt)
@@ -90,7 +70,22 @@ const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({city, chil
 				setHourlyWeather(newData)
 			})
 		})
-	}, [cityName, coordinates.lat, coordinates.lon, trueCoordinates])
+		fetch(url_onecall).then(response => {
+			response.json().then(data => {
+				console.log(url_onecall)
+				setCurrentlyWeather({
+					time: new Date().toLocaleString("ru-RU", {timeZone: data.timezone}),
+					temperature: Math.round(data.current.temp - 273.15),
+					humidity: data.current.humidity,
+					windSpeed: data.current.wind_speed,
+					cloudcover: data.current.clouds,
+					rain: 0,
+					snowfall: data.current.snow === undefined ? 0 : data.current.snow["1h"],
+					snowDepth: 0
+				})
+			})
+		})
+	}, [cityName, coordinates.lat, coordinates.lon])
 
 	return (
 		<WeatherOWAPIDataContext.Provider value={{currentlyWeather: currentlyWeather, hourlyWeather: hourlyWeather}}>

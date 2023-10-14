@@ -11,7 +11,6 @@ function App() {
   const [city, setCity] = useState({
     cityName: "Moscow",
     coordinates: {lat: 55.78, lon: 37.56},
-    trueCoordinates: true
   })
 
   return (
