@@ -10,13 +10,14 @@ import { useState } from 'react';
 function App() {
   const [city, setCity] = useState({
     cityName: "Moscow",
-    coordinates: {lat: 55.78, lon: 37.56}
+    coordinates: {lat: 55.78, lon: 37.56},
+    trueCoordinates: true
   })
 
   return (
       <>
        <SearchCity setCity={setCity}/>
-        <WeatherDataOWAPIProvider coordinates={city.coordinates}>
+        <WeatherDataOWAPIProvider city={city}>
           <WeatherDataProvider coordinates={city.coordinates}>
             <DarkModeProvider>
               <>
