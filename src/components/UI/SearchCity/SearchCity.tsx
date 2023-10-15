@@ -36,7 +36,7 @@ export const SearchCity:FC<IPropsSearchCity> = ({setCity}) => {
 	}
 
 	const sendRequest = async (value: string, isLast:boolean) => {
-		await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=${process.env.REACT_APP_OW_API}`)
+		await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=${process.env.REACT_APP_OW_API}`)
 			.then((response) => response.json())
 			.then((data) => {
 				if (isLast){

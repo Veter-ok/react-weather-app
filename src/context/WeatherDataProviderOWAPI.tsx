@@ -53,9 +53,21 @@ const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({city, chil
 	})
 
 	useEffect(() => {
-		let url_onecall = `${OPEN_WEATHER_API_URL}onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=hourly,daily&appid=${process.env.REACT_APP_OW_API}`
-		let url_forecast = `${OPEN_WEATHER_API_URL}forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=hourly,daily&appid=${process.env.REACT_APP_OW_API}`
-		fetch(url_forecast).then(response => {
+		fetch(`${OPEN_WEATHER_API_URL}onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=hourly,daily&appid=${process.env.REACT_APP_OW_API}`).then(response => {
+			response.json().then(data => {
+				setCurrentlyWeather({
+					time: new Date().toLocaleString("ru-RU", {timeZone: data.timezone}),
+					temperature: Math.round(data.current.temp - 273.15),
+					humidity: data.current.humidity,
+					windSpeed: data.current.wind_speed,
+					cloudcover: data.current.clouds,
+					rain: 0,
+					snowfall: data.current.snow === undefined ? 0 : data.current.snow["1h"],
+					snowDepth: 0
+				})
+			})
+		})
+		fetch(`${OPEN_WEATHER_API_URL}forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=hourly,daily&appid=${process.env.REACT_APP_OW_API}`).then(response => {
 			response.json().then(data => {
 				const newData:IHourlyWeatherData = {times: [], temperatures: [], humidity: [], windSpeed: [], cloudcover: [], rain: [], snowfall: []}
 				data.list.forEach((day: any) => {
@@ -68,21 +80,6 @@ const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({city, chil
 					newData.rain.push(0)
 				});
 				setHourlyWeather(newData)
-			})
-		})
-		fetch(url_onecall).then(response => {
-			response.json().then(data => {
-				console.log(url_onecall)
-				setCurrentlyWeather({
-					time: new Date().toLocaleString("ru-RU", {timeZone: data.timezone}),
-					temperature: Math.round(data.current.temp - 273.15),
-					humidity: data.current.humidity,
-					windSpeed: data.current.wind_speed,
-					cloudcover: data.current.clouds,
-					rain: 0,
-					snowfall: data.current.snow === undefined ? 0 : data.current.snow["1h"],
-					snowDepth: 0
-				})
 			})
 		})
 	}, [cityName, coordinates.lat, coordinates.lon])
