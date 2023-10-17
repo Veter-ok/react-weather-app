@@ -1,12 +1,10 @@
 export interface IweatherData {
-	currentlyWeather: ICurrentlyWeatherData,
 	hourlyWeather: IHourlyWeatherData
 
 }
 
 export interface IweatherDataOWAPI {
 	currentlyWeather: ICurrentlyWeatherData,
-	hourlyWeather: IHourlyWeatherData
 }
 
 export interface IHourlyWeatherData {
@@ -21,6 +19,9 @@ export interface IHourlyWeatherData {
 
 export interface ICurrentlyWeatherData {
 	time: string
+	sunset: string
+	sunrise: string
+	weather: string
 	temperature: number
 	humidity: number
 	windSpeed: number

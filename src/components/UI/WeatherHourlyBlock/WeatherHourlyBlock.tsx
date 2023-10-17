@@ -3,10 +3,12 @@ import './WeatherHourlyBlock.css'
 import { DarkModeContext } from "../../../context/DarkModeProvider";
 import { WeatherDataContext} from "../../../context/WeatherDataProvider";
 import { convertStringToDate } from "../../../utils/FormatDate";
+import { WeatherOWAPIDataContext } from "../../../context/WeatherDataProviderOWAPI";
 
 export const WeatherHourlyBlock:FC = () => {
-	const {currentlyWeather, hourlyWeather} = useContext(WeatherDataContext)
-	const firstIndex = currentlyWeather.time ? Number(currentlyWeather.time.split(", ")[1].split(":")[0]) + 1 : 0
+	const {hourlyWeather} = useContext(WeatherDataContext)
+	const {currentlyWeather} = useContext(WeatherOWAPIDataContext)
+	const firstIndex = Number(currentlyWeather.time.slice(12, 14)) + 1
 	const darkMode = useContext(DarkModeContext)
 
 	const convertTime = (date: Date):string => `${date.getHours()}:00`

@@ -2,10 +2,10 @@ import './App.css';
 import PictureScreen from './components/screens/PictureScreen';
 import {DarkModeProvider} from './context/DarkModeProvider';
 import Content from './components/content/content';
-import { WeatherDataProvider } from './context/WeatherDataProvider';
 import { WeatherDataOWAPIProvider} from './context/WeatherDataProviderOWAPI';
 import { SearchCity } from './components/UI/SearchCity/SearchCity';
 import { useState } from 'react';
+import { WeatherDataProvider } from './context/WeatherDataProvider';
 
 function App() {
   const [city, setCity] = useState({

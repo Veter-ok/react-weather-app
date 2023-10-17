@@ -4,7 +4,7 @@ import Rainfall from "../UI/rainfall/rainfall";
 import Luminary from "../UI/luminary/luminary";
 import Clouds from "../UI/clouds/clouds";
 import Hill from "../drawing/hills/hill";
-import { WeatherDataContext } from "../../context/WeatherDataProvider";
+import {WeatherOWAPIDataContext} from '../../context/WeatherDataProviderOWAPI'
 import SnowFall from "../UI/showFall/snowFall";
 import { CityType } from "../../types/CityTypes";
 
@@ -25,7 +25,7 @@ interface IPropsPictureScreen {
 }
 
 const PictureScreen:FC<IPropsPictureScreen> = ({city}) => {
-	const {currentlyWeather} = useContext(WeatherDataContext)
+	const {currentlyWeather} = useContext(WeatherOWAPIDataContext)
 	const [timeOfDay, setTimeOfDay] = useState<"morning" | "day"| "evening" | "night">("day")
 	const [cloudCover, setCloudcover] = useState<"clear" | "overcast">("clear")
 	const [season, setSeason] = useState< "winter" | "summer">("summer")
