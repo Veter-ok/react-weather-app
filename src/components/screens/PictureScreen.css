@@ -7,6 +7,24 @@
 	right: 12%;
 }
 
+.sunrise {
+	position: absolute;
+	font-size: 18px;
+	color: white;
+	z-index: 1000;
+	top: 45px;
+	right: 12%;
+}
+
+.sunset {
+	position: absolute;
+	font-size: 18px;
+	color: white;
+	z-index: 1000;
+	top: 70px;
+	right: 12%;
+}
+
 .city {
 	position: absolute;
 	font-size: 28px;
@@ -92,13 +110,27 @@
 		height: 350px;
 	}
 	.time {
-		right: 10%;
+		right: 5%;
+	}
+	.sunrise {
+		right: 5%;
+	}
+	.sunset {
+		right: 5%;
 	}
 	.city, .currently-temperature {
 		display: none;
 	}
 }
 
+@media screen and (max-width: 580px){
+	.sunrise {
+		display: none;
+	}
+	.sunset {
+		display: none;
+	}
+}
 
 @media screen and (max-width: 400px){
 	.frame {
@@ -107,6 +139,12 @@
 		height: 340px;
 	}
 	.time {
+		right: 3%;
+	}
+	.sunrise {
+		right: 3%;
+	}
+	.sunset {
 		right: 3%;
 	}
 }

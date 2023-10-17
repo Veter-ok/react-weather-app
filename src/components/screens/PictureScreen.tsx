@@ -7,6 +7,7 @@ import Hill from "../drawing/hills/hill";
 import {WeatherOWAPIDataContext} from '../../context/WeatherDataProviderOWAPI'
 import SnowFall from "../UI/showFall/snowFall";
 import { CityType } from "../../types/CityTypes";
+import { convertStringToTime } from "../../utils/FormatDate";
 
 interface IPictureThemeContext {
 	timeOfDay: "morning" | "day"| "evening" | "night",
@@ -31,10 +32,13 @@ const PictureScreen:FC<IPropsPictureScreen> = ({city}) => {
 	const [season, setSeason] = useState< "winter" | "summer">("summer")
 
 	useEffect(() => {
-		let time = 0
-		if (currentlyWeather.time){
-			time = Number(currentlyWeather.time.split(',')[1].split(':')[0])
-		}
+		const time = convertStringToTime(currentlyWeather.time.slice(12, 20))
+		const sunset = convertStringToTime(currentlyWeather.sunset)
+		const sunrise = convertStringToTime(currentlyWeather.sunrise)
+		const day = sunrise
+		day.setHours(sunrise.getHours() + 3)
+		const evening = sunset
+		evening.setHours(sunset.getHours() - 2)
 
 		if (currentlyWeather.snowDepth > 0.05){
 			setSeason('winter')
@@ -48,12 +52,12 @@ const PictureScreen:FC<IPropsPictureScreen> = ({city}) => {
 			setCloudcover('clear')
 		}
 
-		if (time > 5 && time <= 8){
+		if (time > sunrise && time <= day){
 			setTimeOfDay('morning')
 		}
-		else if (time > 8 && time <= 17){
+		else if (time > day && time <= evening){
 			setTimeOfDay('day')
-		}else if (time > 17 && time < 19){
+		}else if (time > evening && time < sunset){
 			setTimeOfDay('evening')
 		}else{
 			setTimeOfDay('night')
@@ -67,10 +71,19 @@ const PictureScreen:FC<IPropsPictureScreen> = ({city}) => {
 			return `${hours}:${minute}`
 		}
 	}
+
+	const formatTime = (time: string) => {
+		if (time) {
+			const [hours, minutes] = time.split(':')
+			return `${hours}:${minutes}`
+		}
+	}
 	
 	return (
 		<PictureThemeContext.Provider value={{timeOfDay: timeOfDay, cloudCover: cloudCover, season: season}}>
 			<div className="time">{formatDate(currentlyWeather.time)}</div>
+			<div className="sunrise">Sunrise: {formatTime(currentlyWeather.sunrise)}</div>
+			<div className="sunset">Sunset:  {formatTime(currentlyWeather.sunset)}</div>
 			<div className="city">{city.cityName}</div>
 			<div className="currently-temperature">{currentlyWeather.temperature}°C</div>
 			<div className={`frame ${timeOfDay} ${cloudCover}`}>

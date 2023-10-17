@@ -9,3 +9,12 @@ export const convertStringToDate = (date: string):Date => {
 	const FormatedDate = new Date(date)
 	return FormatedDate
 }
+
+export const convertStringToTime = (time: string):Date => {
+	const formattedTime = new Date()
+	const [hours, minutes, seconds] = time.split(':')
+	formattedTime.setHours(Number(hours))
+	formattedTime.setMinutes(Number(minutes))
+	formattedTime.setSeconds(Number(seconds))
+	return formattedTime
+}
