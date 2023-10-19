@@ -1,9 +1,9 @@
 import React, {FunctionComponent as FC, useContext, useEffect, useState, createContext} from "react";
 import './PictureScreen.css'
-import Rainfall from "../UI/rainfall/rainfall";
 import Luminary from "../UI/luminary/luminary";
 import Clouds from "../UI/clouds/clouds";
 import Hill from "../drawing/hills/hill";
+import Rainfall from "../drawing/rainfall/rainfall";
 import {WeatherOWAPIDataContext} from '../../context/WeatherDataProviderOWAPI'
 import SnowFall from "../UI/showFall/snowFall";
 import { CityType } from "../../types/CityTypes";
@@ -35,9 +35,9 @@ const PictureScreen:FC<IPropsPictureScreen> = ({city}) => {
 		const time = convertStringToTime(currentlyWeather.time.slice(12, 20))
 		const sunset = convertStringToTime(currentlyWeather.sunset)
 		const sunrise = convertStringToTime(currentlyWeather.sunrise)
-		const day = sunrise
-		day.setHours(sunrise.getHours() + 3)
-		const evening = sunset
+		const day = new Date(sunrise)
+		day.setHours(sunrise.getHours() + 2)
+		const evening = new Date(sunset)
 		evening.setHours(sunset.getHours() - 2)
 
 		if (currentlyWeather.snowDepth > 0.05){
@@ -57,13 +57,14 @@ const PictureScreen:FC<IPropsPictureScreen> = ({city}) => {
 		}
 		else if (time > day && time <= evening){
 			setTimeOfDay('day')
-		}else if (time > evening && time < sunset){
+		}else if (time > evening && time <= sunset){
 			setTimeOfDay('evening')
 		}else{
 			setTimeOfDay('night')
 		}
-		//console.log(currentlyWeather, currentlyWeather.time, timeOfDay, cloudCover, season)
-	}, [cloudCover, currentlyWeather, currentlyWeather.cloudcover, currentlyWeather.snowDepth, season, timeOfDay])
+	}, [cloudCover, currentlyWeather.cloudcover, currentlyWeather.snowDepth, currentlyWeather.sunrise, currentlyWeather.sunset, currentlyWeather.time, season, timeOfDay])
+
+	console.log(currentlyWeather)
 
 	const formatDate = (date: string) => {
 		if (date){
@@ -88,7 +89,7 @@ const PictureScreen:FC<IPropsPictureScreen> = ({city}) => {
 			<div className="currently-temperature">{currentlyWeather.temperature}°C</div>
 			<div className={`frame ${timeOfDay} ${cloudCover}`}>
 				<Luminary timeOfDay={timeOfDay} cloudcover={currentlyWeather.cloudcover}/>
-				<Rainfall rain={currentlyWeather.rain}/>
+				<Rainfall rain={currentlyWeather.rain} weather={currentlyWeather.weather}/>
 				<SnowFall snowFall={currentlyWeather.snowfall}/>
 				<Clouds/>
 				<Hill/>
