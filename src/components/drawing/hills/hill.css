@@ -5,63 +5,6 @@
 	position: absolute;
 }
 
-
-.hill-winter-day-1, .hill-winter-overcast-day-1 {
-	background-color: rgb(240, 240, 240); 
-}
-
-.hill-winter-day-2, .hill-winter-overcast-day-2 {
-	background-color: rgb(250, 250, 250); 
-}
-
-.hill-summer-day-1 {
-	background-color: rgb(26, 134, 76); 
-}
-
-.hill-summer-day-2 {
-	background-color: rgb(70, 207, 134); 
-}
-
-.hill-summer-night-1, .hill-winter-night-1, .hill-winter-overcast-night-1, .hill-summer-overcast-night-1, .hill-summer-overcast-day-1 {
-	background-color: rgb(39, 49, 77); 
-}
-
-.hill-summer-night-2 , .hill-winter-night-2, .hill-winter-overcast-night-2, .hill-summer-overcast-night-2, .hill-summer-overcast-day-2 {
-	background-color: rgb(50, 60, 91); 
-}
-
-.hill-summer-overcast-morning-1 {
-	background-color: rgb(150, 170, 160); 
-}
-
-.hill-summer-overcast-morning-2 {
-	background-color: rgb(150, 180, 150); 
-}
-
-.hill-summer-morning-1 {
-	background-color: rgb(149, 203, 176); 
-}
-
-.hill-summer-morning-2 {
-	background-color: rgb(156, 212, 156); 
-}
-
-.hill-summer-evening-1 {
-	background-color: rgb(124, 170, 147);
-}
-
-.hill-summer-evening-2 {
-	background-color: rgb(135, 195, 135); 
-}
-
-.hill-winter-overcast-evening-1 {
-	background-color: rgb(77, 77, 77); 
-}
-
-.hill-winter-overcast-evening-2 {
-	background-color: rgb(136, 132, 132); 
-}
-
 .hill-1 {
 	top: 55%;
 	left: 60%;
@@ -74,13 +17,11 @@
 	z-index: 10;
 }
 
-
 .hill-3 {
 	top: 62%;
 	left: -15%;
 	z-index: 10;
 }
-
 
 .hill-4 {
 	top: 65%;
@@ -88,13 +29,11 @@
 	z-index: 15;
 }
 
-
 .hill-5 {
 	top: 65%;
 	left: 30%;
 	z-index: 15;
 }
-
 
 .hill-6 {
 	top: 70%;
