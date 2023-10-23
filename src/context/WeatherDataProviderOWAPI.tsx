@@ -8,7 +8,8 @@ interface IWeatherOWAPIDataProviderProps {
 	children: JSX.Element
 }
 
-const WeatherOWAPIDataContext = createContext<IweatherDataOWAPI>({
+const WeatherOWAPIDataContext = createContext(
+	{
 	currentlyWeather: {
 		time: '',
 		sunrise: '',
@@ -21,8 +22,10 @@ const WeatherOWAPIDataContext = createContext<IweatherDataOWAPI>({
 		rain: 0,
 		snowfall: 0,
 		snowDepth: 0
-	}
-})
+	},
+	setCurrentlyWeather(c: any){}
+}
+)
 
 const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({city, children}) => {
 	const {cityName, coordinates} = city
@@ -61,7 +64,7 @@ const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({city, chil
 	}, [cityName, coordinates.lat, coordinates.lon])
 
 	return (
-		<WeatherOWAPIDataContext.Provider value={{currentlyWeather: currentlyWeather}}>
+		<WeatherOWAPIDataContext.Provider value={{currentlyWeather: currentlyWeather, setCurrentlyWeather: setCurrentlyWeather}}>
 			{children}
 		</WeatherOWAPIDataContext.Provider>
 	)

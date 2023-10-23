@@ -67,7 +67,7 @@ const PictureScreen:FC<IPropsPictureScreen> = ({city}) => {
 	console.log(currentlyWeather)
 
 	const formatDate = (date: string) => {
-		if (date){
+		if (date !== ""){
 			const [hours, minute] = date.split(' ')[1].split(':')
 			return `${hours}:${minute}`
 		}
