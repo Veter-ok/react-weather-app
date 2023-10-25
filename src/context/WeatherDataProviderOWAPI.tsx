@@ -1,5 +1,5 @@
 import React, {createContext, FunctionComponent as FC, useEffect, useState} from "react"; 
-import {ICurrentlyWeatherData, IweatherDataOWAPI } from "../types/weatherDataType";
+import {ICurrentlyWeatherData } from "../types/weatherDataType";
 import { OPEN_WEATHER_API_URL } from "../api/api";
 import { CityType } from "../types/CityTypes";
 
@@ -8,8 +8,8 @@ interface IWeatherOWAPIDataProviderProps {
 	children: JSX.Element
 }
 
-const WeatherOWAPIDataContext = createContext(
-	{
+const WeatherOWAPIDataContext = createContext({
+	time: '',
 	currentlyWeather: {
 		time: '',
 		sunrise: '',
@@ -23,12 +23,12 @@ const WeatherOWAPIDataContext = createContext(
 		snowfall: 0,
 		snowDepth: 0
 	},
-	setCurrentlyWeather(c: any){}
-}
-)
+	setCurrentlyWeather(c: ICurrentlyWeatherData){}
+})
 
 const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({city, children}) => {
 	const {cityName, coordinates} = city
+	const [currentlyTime, setCurrentlyTime] = useState('')
 	const [currentlyWeather, setCurrentlyWeather] = useState<ICurrentlyWeatherData>({
 			time: '',
 			sunset: '',
@@ -46,6 +46,7 @@ const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({city, chil
 	useEffect(() => {
 		fetch(`${OPEN_WEATHER_API_URL}onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=hourly,daily&appid=${process.env.REACT_APP_OW_API}`).then(response => {
 			response.json().then(data => {
+				setCurrentlyTime(new Date().toLocaleString("ru-RU", {timeZone: data.timezone}))
 				setCurrentlyWeather({
 					time: new Date().toLocaleString("ru-RU", {timeZone: data.timezone}),
 					sunrise: new Date((data.current.sunrise + data.timezone_offset) * 1000).toISOString().slice(11, 19),
@@ -64,7 +65,7 @@ const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({city, chil
 	}, [cityName, coordinates.lat, coordinates.lon])
 
 	return (
-		<WeatherOWAPIDataContext.Provider value={{currentlyWeather: currentlyWeather, setCurrentlyWeather: setCurrentlyWeather}}>
+		<WeatherOWAPIDataContext.Provider value={{time: currentlyTime, currentlyWeather: currentlyWeather, setCurrentlyWeather: setCurrentlyWeather}}>
 			{children}
 		</WeatherOWAPIDataContext.Provider>
 	)

@@ -10,6 +10,12 @@ export const convertStringToDate = (date: string):Date => {
 	return FormatedDate
 }
 
+export const convertStringOWAPIToDate = (date: string):Date => {
+	date = `${date.slice(6, 10)}-${date.slice(3, 5)}-${date.slice(0, 2)}T${date.slice(12, 14)}:${date.slice(15, 17)}`
+	const FormatedDate = new Date(date)
+	return FormatedDate
+}
+
 export const convertStringToTime = (time: string):Date => {
 	const formattedTime = new Date()
 	const [hours, minutes, seconds] = time.split(':')

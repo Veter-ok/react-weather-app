@@ -64,8 +64,6 @@ const PictureScreen:FC<IPropsPictureScreen> = ({city}) => {
 		}
 	}, [cloudCover, currentlyWeather.cloudcover, currentlyWeather.snowDepth, currentlyWeather.sunrise, currentlyWeather.sunset, currentlyWeather.time, season, timeOfDay])
 
-	console.log(currentlyWeather)
-
 	const formatDate = (date: string) => {
 		if (date !== ""){
 			const [hours, minute] = date.split(' ')[1].split(':')
