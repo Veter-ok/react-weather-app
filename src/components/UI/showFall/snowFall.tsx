@@ -10,7 +10,7 @@ const SnowFall:FC<Props> = ({snowFall}) => {
 	const createSnow = () => {
 		let snowList = []
 		for(let i = 0; i < 50; i++){
-			snowList.push(<div className='snow' style={{
+			snowList.push(<div className='snow' key={i} style={{
 				marginLeft: `${Math.random() * (0 - 1000) + 1000}px`,
 				animationDelay: `${Math.random() * (2 - 7) + 7}s`
 			}}></div>)

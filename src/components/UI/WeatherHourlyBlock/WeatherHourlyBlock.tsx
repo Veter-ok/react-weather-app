@@ -26,7 +26,7 @@ export const WeatherHourlyBlock:FC = () => {
 			cloudcover: hourlyWeather.cloudcover[index],
 			rain: hourlyWeather.rain[index],
 			snowfall: hourlyWeather.snowfall[index],
-			snowDepth: currentlyWeather.snowDepth
+			snowDepth: hourlyWeather.snow_depth[index]
 		}
 	}
 

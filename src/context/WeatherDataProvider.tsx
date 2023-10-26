@@ -21,6 +21,7 @@ const WeatherDataContext = createContext<IFullWeatherData>({
 		cloudcover: [],
 		rain: [],
 		snowfall: [],
+		snow_depth: []
 	},
 	dailyWeather: {
 		times: [],
@@ -42,6 +43,7 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 			cloudcover: [],
 			rain: [],
 			snowfall: [],
+			snow_depth: [],
 		},
 		dailyWeather: {
 			times: [],
@@ -54,7 +56,7 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 	})
 
 	useEffect(() => {
-		fetch(`${OPEN_METEO_API_URL}latitude=${coordinates.lat}&longitude=${coordinates.lon}&hourly=temperature_2m,relativehumidity_2m,cloudcover,windspeed_10m,snowfall,rain,snow_depth&current_weather=true&daily=temperature_2m_max,temperature_2m_min,rain_sum,snowfall_sum,windspeed_10m_max&timezone=auto`)
+		fetch(`${OPEN_METEO_API_URL}latitude=${coordinates.lat}&longitude=${coordinates.lon}&hourly=temperature_2m,relativehumidity_2m,cloudcover,windspeed_10m,snowfall,rain,snow_depth&daily=temperature_2m_max,temperature_2m_min,rain_sum,snowfall_sum,windspeed_10m_max&timezone=auto`)
 		.then((response) => response.json())
 		.then((data: ResponseWeather) => {
 			setWeatherData({
@@ -65,7 +67,8 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 					windSpeed: data.hourly.windspeed_10m,
 					cloudcover: data.hourly.cloudcover,
 					rain: data.hourly.rain,
-					snowfall: data.hourly.snowfall
+					snowfall: data.hourly.snowfall,
+					snow_depth: data.hourly.snow_depth
 				},
 				dailyWeather: {
 					times: data.daily.time,
