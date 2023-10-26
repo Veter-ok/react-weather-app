@@ -15,6 +15,7 @@ export interface IHourlyWeatherData {
 	cloudcover: number[]
 	rain: number[]
 	snowfall: number[]
+	snow_depth: number[]
 }
 
 export interface ICurrentlyWeatherData {
