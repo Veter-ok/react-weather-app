@@ -2,21 +2,21 @@ import {FunctionComponent as FC, useContext} from "react";
 import './WeatherHourlyBlock.css'
 import { DarkModeContext } from "../../../context/DarkModeProvider";
 import { WeatherDataContext} from "../../../context/WeatherDataProvider";
-import { convertStringToDate, convertStringOWAPIToDate} from "../../../utils/FormatDate";
+import { convertStringToDate, convertStringOWAPIToDate, convertStringUnionToOWAPI} from "../../../utils/FormatDate";
 import { WeatherOWAPIDataContext } from "../../../context/WeatherDataProviderOWAPI";
 import { ICurrentlyWeatherData } from "../../../types/weatherDataType";
 
 export const WeatherHourlyBlock:FC = () => {
 	const {hourlyWeather} = useContext(WeatherDataContext)
 	const {currentlyWeather, setCurrentlyWeather, time} = useContext(WeatherOWAPIDataContext)
-	const firstIndex = convertStringOWAPIToDate(time) <= convertStringToDate(currentlyWeather.time) ? Number(time.slice(12, 14)) : Number(currentlyWeather.time.slice(12, 14))
+	const firstIndex = convertStringOWAPIToDate(time) <= convertStringOWAPIToDate(currentlyWeather.time) ? Number(time.slice(12, 14)) : Number(currentlyWeather.time.slice(12, 14))
 	const darkMode = useContext(DarkModeContext)
 
 	const convertTime = (date: Date):string => `${date.getHours()}:00`
 
 	const newCurrentlyWeanter = (index: number):ICurrentlyWeatherData => {
 		return {
-			time: hourlyWeather.times[index].replace('T', ', ') + ':00',
+			time: convertStringUnionToOWAPI(hourlyWeather.times[index]),
 			sunrise: currentlyWeather.sunrise,
 			sunset: currentlyWeather.sunset,
 			weather: currentlyWeather.weather,

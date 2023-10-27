@@ -16,6 +16,11 @@ export const convertStringOWAPIToDate = (date: string):Date => {
 	return FormatedDate
 }
 
+export const convertStringUnionToOWAPI = (date: string):string => {
+	const formatedDate = `${date.slice(8, 10)}.${date.slice(5, 7)}.${date.slice(0, 4)}, ${date.slice(11, 13)}:00:00`
+	return formatedDate
+}
+
 export const convertStringToTime = (time: string):Date => {
 	const formattedTime = new Date()
 	const [hours, minutes, seconds] = time.split(':')

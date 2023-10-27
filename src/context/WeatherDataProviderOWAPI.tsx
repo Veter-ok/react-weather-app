@@ -27,7 +27,7 @@ const WeatherOWAPIDataContext = createContext({
 })
 
 const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({city, children}) => {
-	const {cityName, coordinates} = city
+	const {coordinates} = city
 	const [currentlyTime, setCurrentlyTime] = useState('')
 	const [currentlyWeather, setCurrentlyWeather] = useState<ICurrentlyWeatherData>({
 			time: '',
