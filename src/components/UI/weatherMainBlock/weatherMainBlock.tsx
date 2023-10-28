@@ -18,6 +18,7 @@ export const WeatherMainBlock:FC<IPropsContent> = ({city}) => {
 			<div className="block-1">
 				<div className="cityName">{city.cityName}</div>
 				<div className="temperature">{currentlyWeather.temperature}°C</div>
+				<div className="weather">{currentlyWeather.weather}</div>
 			</div>
 			<div className="block-2">
 				<div className="wind">Wind: E {currentlyWeather.windSpeed}km/h</div>

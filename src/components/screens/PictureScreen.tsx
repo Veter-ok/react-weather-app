@@ -80,11 +80,14 @@ const PictureScreen:FC<IPropsPictureScreen> = ({city}) => {
 	
 	return (
 		<PictureThemeContext.Provider value={{timeOfDay: timeOfDay, cloudCover: cloudCover, season: season}}>
-			<div className="time">{formatDate(currentlyWeather.time)}</div>
-			<div className="sunrise">Sunrise: {formatTime(currentlyWeather.sunrise)}</div>
-			<div className="sunset">Sunset:  {formatTime(currentlyWeather.sunset)}</div>
+			<div className="time-block">
+				<div className="time">{formatDate(currentlyWeather.time)}</div>
+				<div className="sunrise">Sunrise: {formatTime(currentlyWeather.sunrise)}</div>
+				<div className="sunset">Sunset: &nbsp;{formatTime(currentlyWeather.sunset)}</div>
+			</div>
 			<div className="city">{city.cityName}</div>
 			<div className="currently-temperature">{currentlyWeather.temperature}°C</div>
+			<div className="weather-1">{currentlyWeather.weather}</div>
 			<div className={`frame ${timeOfDay} ${cloudCover}`}>
 				<Luminary timeOfDay={timeOfDay} cloudcover={currentlyWeather.cloudcover}/>
 				<Rainfall rain={currentlyWeather.rain} weather={currentlyWeather.weather}/>
