@@ -1,5 +1,7 @@
 .time-block {
 	position: absolute;
+	z-index: 1000;
+	color: white;
 	right: 11%;
 }
 
@@ -7,24 +9,18 @@
 	position: relative;
 	font-size: 24px;
 	text-align: right;
-	color: white;
-	z-index: 1000;
 	top: 10px;
 }
 
 .sunrise {
 	position: relative;
 	font-size: 18px;
-	color: white;
-	z-index: 1000;
 	top: 18px;
 }
 
 .sunset {
 	position: relative;
 	font-size: 18px;
-	color: white;
-	z-index: 1000;
 	top: 20px;
 }
 
@@ -135,7 +131,7 @@
 	.time-block {
 		right: 1%;
 	}
-	.city, .currently-temperature {
+	.city, .currently-temperature, .weather-1 {
 		display: none;
 	}
 }
