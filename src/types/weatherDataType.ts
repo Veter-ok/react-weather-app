@@ -19,9 +19,9 @@ export interface IHourlyWeatherData {
 }
 
 export interface ICurrentlyWeatherData {
-	time: string
-	sunset: string
-	sunrise: string
+	time: Date
+	sunset: Date
+	sunrise: Date
 	weather: string
 	temperature: number
 	humidity: number

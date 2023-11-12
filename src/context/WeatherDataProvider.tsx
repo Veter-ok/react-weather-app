@@ -55,6 +55,13 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 		}
 	})
 
+	const convertStringToDay = (data: string[]) => {
+		let new_array = []
+		data.forEach((date) => {
+			new_array.push()
+		})
+	}
+
 	useEffect(() => {
 		fetch(`${OPEN_METEO_API_URL}latitude=${coordinates.lat}&longitude=${coordinates.lon}&hourly=temperature_2m,relativehumidity_2m,cloudcover,windspeed_10m,snowfall,rain,snow_depth&daily=temperature_2m_max,temperature_2m_min,rain_sum,snowfall_sum,windspeed_10m_max&timezone=auto`)
 		.then((response) => response.json())

@@ -7,7 +7,7 @@ import Rainfall from "../drawing/rainfall/rainfall";
 import {WeatherOWAPIDataContext} from '../../context/WeatherDataProviderOWAPI'
 import SnowFall from "../UI/showFall/snowFall";
 import { CityType } from "../../types/CityTypes";
-import { convertStringToTime } from "../../utils/FormatDate";
+import { convertDateToTime} from "../../utils/FormatDate";
 
 interface IPictureThemeContext {
 	timeOfDay: "morning" | "day"| "evening" | "night",
@@ -32,9 +32,9 @@ const PictureScreen:FC<IPropsPictureScreen> = ({city}) => {
 	const [season, setSeason] = useState< "winter" | "summer">("summer")
 
 	useEffect(() => {
-		const time = convertStringToTime(currentlyWeather.time.slice(12, 20))
-		const sunset = convertStringToTime(currentlyWeather.sunset)
-		const sunrise = convertStringToTime(currentlyWeather.sunrise)
+		const time = currentlyWeather.time
+		const sunset = currentlyWeather.sunset
+		const sunrise = currentlyWeather.sunrise
 		const day = new Date(sunrise)
 		day.setHours(sunrise.getHours() + 2)
 		const evening = new Date(sunset)
@@ -63,27 +63,13 @@ const PictureScreen:FC<IPropsPictureScreen> = ({city}) => {
 			setTimeOfDay('night')
 		}
 	}, [cloudCover, currentlyWeather.cloudcover, currentlyWeather.snowDepth, currentlyWeather.sunrise, currentlyWeather.sunset, currentlyWeather.time, season, timeOfDay])
-
-	const formatDate = (date: string) => {
-		if (date !== ""){
-			const [hours, minute] = date.split(' ')[1].split(':')
-			return `${hours}:${minute}`
-		}
-	}
-
-	const formatTime = (time: string) => {
-		if (time) {
-			const [hours, minutes] = time.split(':')
-			return `${hours}:${minutes}`
-		}
-	}
 	
 	return (
 		<PictureThemeContext.Provider value={{timeOfDay: timeOfDay, cloudCover: cloudCover, season: season}}>
 			<div className="time-block">
-				<div className="time">{formatDate(currentlyWeather.time)}</div>
-				<div className="sunrise">Sunrise: {formatTime(currentlyWeather.sunrise)}</div>
-				<div className="sunset">Sunset: &nbsp;{formatTime(currentlyWeather.sunset)}</div>
+				<div className="time">{convertDateToTime(currentlyWeather.time)}</div>
+				<div className="sunrise">Sunrise: {convertDateToTime(currentlyWeather.sunrise)}</div>
+				<div className="sunset">Sunset: &nbsp;{convertDateToTime(currentlyWeather.sunset)}</div>
 			</div>
 			<div className="city">{city.cityName}</div>
 			<div className="currently-temperature">{currentlyWeather.temperature}°C</div>

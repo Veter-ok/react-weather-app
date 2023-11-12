@@ -3,6 +3,7 @@ import './weatherMainBlock.css'
 import { DarkModeContext } from "../../../context/DarkModeProvider";
 import { WeatherOWAPIDataContext } from "../../../context/WeatherDataProviderOWAPI";
 import { CityType } from "../../../types/CityTypes";
+import { convertDateToTime } from "../../../utils/FormatDate";
 
 interface IPropsContent {
 	city: CityType
@@ -26,8 +27,8 @@ export const WeatherMainBlock:FC<IPropsContent> = ({city}) => {
 				<div className="cloudcover">Cloudcover {currentlyWeather.cloudcover}%</div>
 			</div>
 			<div className="block-3">
-				<div className="sunrise-block">Sunrise: {currentlyWeather.sunrise}</div>
-				<div className="sunset-block">Sunset: {currentlyWeather.sunset}</div>
+				<div className="sunrise-block">Sunrise: {convertDateToTime(currentlyWeather.sunrise)}</div>
+				<div className="sunset-block">Sunset: {convertDateToTime(currentlyWeather.sunset)}</div>
 			</div>
 		</div>
 	)
