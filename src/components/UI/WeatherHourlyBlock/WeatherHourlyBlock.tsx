@@ -2,9 +2,9 @@ import {FunctionComponent as FC, useContext} from "react";
 import './WeatherHourlyBlock.css'
 import { DarkModeContext } from "../../../context/DarkModeProvider";
 import { WeatherDataContext} from "../../../context/WeatherDataProvider";
-import { convertStringToDate} from "../../../utils/FormatDate";
 import { WeatherOWAPIDataContext } from "../../../context/WeatherDataProviderOWAPI";
 import { ICurrentlyWeatherData } from "../../../types/weatherDataType";
+import { convertDateToTime } from "../../../utils/FormatDate";
 
 export const WeatherHourlyBlock:FC = () => {
 	const {hourlyWeather} = useContext(WeatherDataContext)
@@ -12,11 +12,9 @@ export const WeatherHourlyBlock:FC = () => {
 	const firstIndex = time <= currentlyWeather.time ? time.getHours() : currentlyWeather.time.getHours()
 	const darkMode = useContext(DarkModeContext)
 
-	const convertTime = (date: Date):string => `${date.getHours()}:00`
-
 	const newCurrentlyWeanter = (index: number):ICurrentlyWeatherData => {
 		return {
-			time: convertStringToDate(hourlyWeather.times[index]),
+			time: hourlyWeather.times[index],
 			sunrise: currentlyWeather.sunrise,
 			sunset: currentlyWeather.sunset,
 			weather: currentlyWeather.weather,
@@ -35,7 +33,7 @@ export const WeatherHourlyBlock:FC = () => {
 			{hourlyWeather.temperatures.slice(firstIndex, firstIndex + 6).map((value, index) => 
 				<div key={index} onClick={() => setCurrentlyWeather(newCurrentlyWeanter(firstIndex + index))} className={darkMode ? "hourly-block block-dark" : "hourly-block block-light"}>
 					<div className="hourly-block-1">
-						<div className="hourly-block-date">{convertTime(convertStringToDate(hourlyWeather.times[firstIndex + index]))}</div>
+						<div className="hourly-block-date">{convertDateToTime(hourlyWeather.times[firstIndex + index])}</div>
 						<div className="hourly-block-temperature">{Math.round(hourlyWeather.temperatures[firstIndex + index])}°C</div>
 					</div>
 					<div className="hourly-block-2">

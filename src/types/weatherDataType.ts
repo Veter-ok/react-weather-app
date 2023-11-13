@@ -8,7 +8,7 @@ export interface IweatherDataOWAPI {
 }
 
 export interface IHourlyWeatherData {
-	times: string[]
+	times: Date[]
 	temperatures: number[]
 	humidity: number[]
 	windSpeed: number[]
@@ -33,7 +33,7 @@ export interface ICurrentlyWeatherData {
 }
 
 export interface IDailyWeather {
-	times: string[]
+	times: Date[]
 	temperatures_max: number[]
 	temperatures_min: number[]
 	windspeed: number[]

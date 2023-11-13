@@ -1,5 +1,5 @@
 import React, {createContext, FunctionComponent as FC, useEffect, useState} from "react"; 
-import { IDailyWeather, IweatherData } from "../types/weatherDataType";
+import { IDailyWeather, IHourlyWeatherData, IweatherData } from "../types/weatherDataType";
 import { OPEN_METEO_API_URL } from "../api/api";
 import { ResponseWeather } from "./types";
 
@@ -9,6 +9,7 @@ interface IWeatherDataProviderProps {
 }
 
 interface IFullWeatherData extends IweatherData {
+	hourlyWeather: IHourlyWeatherData
 	dailyWeather: IDailyWeather
 }
 
@@ -55,11 +56,12 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 		}
 	})
 
-	const convertStringToDay = (data: string[]) => {
-		let new_array = []
+	const convertStringsToDate = (data: string[]) => {
+		const new_array:Date[] = []
 		data.forEach((date) => {
-			new_array.push()
+			new_array.push(new Date(date))
 		})
+		return new_array
 	}
 
 	useEffect(() => {
@@ -68,7 +70,7 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 		.then((data: ResponseWeather) => {
 			setWeatherData({
 				hourlyWeather: {
-					times: data.hourly.time, 
+					times: convertStringsToDate(data.hourly.time), 
 					temperatures: data.hourly.temperature_2m,
 					humidity: data.hourly.relativehumidity_2m,
 					windSpeed: data.hourly.windspeed_10m,
@@ -78,7 +80,7 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 					snow_depth: data.hourly.snow_depth
 				},
 				dailyWeather: {
-					times: data.daily.time,
+					times: convertStringsToDate(data.daily.time),
 					temperatures_max: data.daily.temperature_2m_max,
 					temperatures_min: data.daily.temperature_2m_min,
 					windspeed: data.daily.windspeed_10m_max,
