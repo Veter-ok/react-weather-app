@@ -9,7 +9,7 @@ import { convertDateToTime } from "../../../utils/FormatDate";
 export const WeatherHourlyBlock:FC = () => {
 	const {hourlyWeather} = useContext(WeatherDataContext)
 	const {currentlyWeather, setCurrentlyWeather, time} = useContext(WeatherOWAPIDataContext)
-	const firstIndex = time <= currentlyWeather.time ? time.getHours() : currentlyWeather.time.getHours()
+	const firstIndex = time.getHours()
 	const darkMode = useContext(DarkModeContext)
 
 	const newCurrentlyWeanter = (index: number):ICurrentlyWeatherData => {

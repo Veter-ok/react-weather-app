@@ -8,6 +8,7 @@ import {WeatherOWAPIDataContext} from '../../context/WeatherDataProviderOWAPI'
 import SnowFall from "../UI/showFall/snowFall";
 import { CityType } from "../../types/CityTypes";
 import { convertDateToTime} from "../../utils/FormatDate";
+import Clock from "../UI/clock/Clock";
 
 interface IPictureThemeContext {
 	timeOfDay: "morning" | "day"| "evening" | "night",
@@ -67,7 +68,7 @@ const PictureScreen:FC<IPropsPictureScreen> = ({city}) => {
 	return (
 		<PictureThemeContext.Provider value={{timeOfDay: timeOfDay, cloudCover: cloudCover, season: season}}>
 			<div className="time-block">
-				<div className="time">{convertDateToTime(currentlyWeather.time)}</div>
+				<Clock/>
 				<div className="sunrise">Sunrise: {convertDateToTime(currentlyWeather.sunrise)}</div>
 				<div className="sunset">Sunset: &nbsp;{convertDateToTime(currentlyWeather.sunset)}</div>
 			</div>
