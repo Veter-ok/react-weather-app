@@ -51,27 +51,28 @@ const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({city, chil
 	}
 
 	const fetchWeather = useCallback(async () => {
-		console.log('fet')
-		await fetch(`${OPEN_WEATHER_API_URL}onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=hourly,daily&appid=${process.env.REACT_APP_OW_API}`).then(response => {
-			response.json().then(data => {
-				const date = convertStringOWAPIToDate(new Date().toLocaleString("ru-RU", {timeZone: data.timezone}))
-				setCurrentlyTime(date)
-				setTimezone(data.timezone)
-				setCurrentlyWeather({
-					time: date,
-					sunrise: new Date((data.current.sunrise + data.timezone_offset) * 1000),
-					sunset: new Date((data.current.sunset + data.timezone_offset) * 1000),
-					weather: data.current.weather[0].description,
-					temperature: Math.round(data.current.temp - 273.15),
-					humidity: data.current.humidity,
-					windSpeed: data.current.wind_speed,
-					cloudcover: data.current.clouds,
-					rain: 0,
-					snowfall: data.current.snow === undefined ? 0 : data.current.snow["1h"],
-					snowDepth: 0
+		await fetch(`${OPEN_WEATHER_API_URL}onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=hourly,daily&appid=${process.env.REACT_APP_OW_API}`)
+			.then(response => {
+				response.json().then(data => {
+					const date = convertStringOWAPIToDate(new Date().toLocaleString("ru-RU", {timeZone: data.timezone}))
+					setCurrentlyTime(date)
+					setTimezone(data.timezone)
+					setCurrentlyWeather({
+						time: date,
+						sunrise: new Date((data.current.sunrise + data.timezone_offset) * 1000),
+						sunset: new Date((data.current.sunset + data.timezone_offset) * 1000),
+						weather: data.current.weather[0].description,
+						temperature: Math.round(data.current.temp - 273.15),
+						humidity: data.current.humidity,
+						windSpeed: data.current.wind_speed,
+						cloudcover: data.current.clouds,
+						rain: 0,
+						snowfall: data.current.snow === undefined ? 0 : data.current.snow["1h"],
+						snowDepth: 0
+					})
 				})
 			})
-		})
+			.catch((error) => console.log(error))
 	}, [coordinates.lat, coordinates.lon])
 
 	useEffect(() => {
