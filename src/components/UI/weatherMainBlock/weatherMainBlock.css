@@ -4,7 +4,9 @@
 	grid-template-rows: 1fr 1fr;
 	width: 100%;
 	height: 200px;
+	padding-top: 10px;
 	box-shadow: 4px 8px 16px 0 rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
 }
 
 .block-dark {
@@ -47,7 +49,6 @@
 
 .block-2 {
 	font-size: 16px;
-	margin-left: 50px;
 	display: block;
 	margin: auto;
 }
@@ -58,7 +59,6 @@
 	grid-column-start: 1;
 	grid-column-end: 4;
 	font-size: 16px;
-	margin-left: 50px;
 	display: block;
 	margin: auto;
 }
@@ -80,15 +80,27 @@
 	}
 }
 
+@media screen and (max-width: 700px) {
+	.block {
+		margin-top: 120px;
+	}
+}
+
 @media screen and (max-width: 400px){
 	.block {
 		grid-template-columns: 1fr;
 		grid-template-rows: 1fr 1fr 1fr;
 		height: 260px;
+		width: 85%;
+		display: block;
+		margin: auto;
+		margin-top: 45px;
 	}
 	.block-2 {
 		font-size: 15px;
+		margin: auto;
 		margin-bottom: 10px;
+		text-align: center;
 	}
 	.block-3 {
 		grid-row-start: 3;
@@ -97,14 +109,17 @@
 		grid-column-end: 1;
 	}
 	.cityName {
-		font-size: 28px;
+		font-size: 32px;
 	}
 	.temperature {
-		font-size: 28px;
+		font-size: 32px;
+	}
+	.humidity {
+		margin: 3px 0px;
 	}
 	.sunrise-block, .sunset-block {
+		text-align: center;
 		display: block;
 		margin-left: 0px;
-		margin-top: 10px;
 	}
 }

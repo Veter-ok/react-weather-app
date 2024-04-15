@@ -9,6 +9,7 @@ import SnowFall from "../UI/showFall/snowFall";
 import { CityType } from "../../types/CityTypes";
 import { convertDateToTime} from "../../utils/FormatDate";
 import Clock from "../UI/clock/Clock";
+import { backgroundColors } from "../drawing/hills/colors";
 
 interface IPictureThemeContext {
 	timeOfDay: "morning" | "day"| "evening" | "night",
@@ -63,6 +64,7 @@ const PictureScreen:FC<IPropsPictureScreen> = ({city}) => {
 		}else{
 			setTimeOfDay('night')
 		}
+	console.log(`${season}-${timeOfDay}-${cloudCover}`)
 	}, [cloudCover, currentlyWeather.cloudcover, currentlyWeather.snowDepth, currentlyWeather.sunrise, currentlyWeather.sunset, currentlyWeather.time, season, timeOfDay])
 	
 	return (
@@ -75,12 +77,12 @@ const PictureScreen:FC<IPropsPictureScreen> = ({city}) => {
 			<div className="city">{city.cityName}</div>
 			<div className="currently-temperature">{currentlyWeather.temperature}°C</div>
 			<div className="weather-1">{currentlyWeather.weather}</div>
-			<div className={`frame ${timeOfDay} ${cloudCover}`}>
+			<div className={`frame ${timeOfDay} ${cloudCover}`} style={{backgroundColor: backgroundColors[`${timeOfDay}-${cloudCover}`]}}>
 				<Luminary timeOfDay={timeOfDay} cloudcover={currentlyWeather.cloudcover}/>
 				<Rainfall rain={currentlyWeather.rain} weather={currentlyWeather.weather}/>
 				<SnowFall snowFall={currentlyWeather.snowfall}/>
 				<Clouds/>
-				<Hill/>
+				<Hill type={`${season}-${timeOfDay}-${cloudCover}`}/>
 			</div>
 		</PictureThemeContext.Provider>
 	)

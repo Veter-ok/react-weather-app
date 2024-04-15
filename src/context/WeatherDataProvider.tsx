@@ -95,11 +95,9 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 	}, [coordinates.lat, coordinates.lon])
 
 	return (
-		<div>
-			<WeatherDataContext.Provider value={weatherData}>
-				{children}
-			</WeatherDataContext.Provider>
-		</div>
+		<WeatherDataContext.Provider value={weatherData}>
+			{children}
+		</WeatherDataContext.Provider>
 	)
 }
 
