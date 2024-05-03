@@ -55,7 +55,7 @@
 		top: 58%;
 	}
 	.hill-3 {
-		top: 65%;
+		top: 62%;
 	}
 	.hill-4, .hill-5 {
 		top: 68%;
@@ -73,7 +73,8 @@
 		top: 60%;
 	}
 	.hill-3 {
-		top: 67%;
+		top: 65%;
+		left: -19%;
 	}
 	.hill-4, .hill-5 {
 		top: 70%;
@@ -93,7 +94,8 @@
 		top: 65%;
 	}
 	.hill-3 {
-		top: 72%;
+		top: 69%;
+		left: -15%;
 	}
 	.hill-4, .hill-5 {
 		top: 75%;

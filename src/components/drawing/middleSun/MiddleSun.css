@@ -1,4 +1,4 @@
-.evening-sun {
+.middle-sun {
 	width: 150px;
 	height: 150px;
 	position: absolute;
@@ -16,5 +16,19 @@
 @keyframes sun-rising {
 	0% {
 		transform: translateY(100px);
+	}
+}
+
+@media screen and (max-width: 700px){
+	.middle-sun {
+		top: 300px;
+		left: 40px;
+	}
+}
+
+@media screen and (max-width: 400px){
+	.middle-sun {
+		top: 225px;
+		left: 30px;
 	}
 }

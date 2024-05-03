@@ -1,11 +1,10 @@
 import {FunctionComponent as FC} from 'react'
 import Sun from '../../drawing/sun/sun'
 import Moon from '../../drawing/moon/moon'
-import MorningSun from '../../drawing/MorningSun/MorningSun'
-import EveningSun from '../../drawing/EveningSun/EveningSun'
+import MiddleSun from '../../drawing/middleSun/MiddleSun'
 
 interface IPropsLuminary {
-	timeOfDay: string
+	timeOfDay: "day" | "night" | "evening" | "morning"
 	cloudcover: number
 }
 
@@ -16,10 +15,8 @@ const Luminary:FC<IPropsLuminary> = ({timeOfDay, cloudcover}) => {
 				return <Sun/>
 			}else if (timeOfDay === "night"){
 				return <Moon/>
-			}else if (timeOfDay === "morning"){
-				return <MorningSun/>
 			}else{
-				return <EveningSun/>
+				return  <MiddleSun timeOfDay={timeOfDay}/>
 			}
 		}else{
 			return <></>

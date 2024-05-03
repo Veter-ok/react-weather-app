@@ -3,7 +3,7 @@ export const convertDateToTime = (date: Date):string => {
 }
 
 export const convertDateToStringDate = (date: Date) => {
-	return `${date.getDay() < 10 ? `0${date.getDay()}` : date.getDay()}.${date.getMonth() < 10 ? `0${date.getMonth()}` :  date.getMonth()}`
+	return `${date.getDay() < 10 ? `0${date.getDay()}` : date.getDay()}.${date.getMonth() < 9 ? `0${date.getMonth() + 1}` :  date.getMonth() + 1}`
 }
 
 export const convertStringOWAPIToDate = (date: string):Date => {
