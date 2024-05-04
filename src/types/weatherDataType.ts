@@ -20,6 +20,7 @@ export interface IHourlyWeatherData {
 
 export interface ICurrentlyWeatherData {
 	time: Date
+	timezone: string
 	sunset: Date
 	sunrise: Date
 	weather: string

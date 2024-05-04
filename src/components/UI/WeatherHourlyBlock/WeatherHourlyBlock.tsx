@@ -15,6 +15,7 @@ export const WeatherHourlyBlock:FC = () => {
 	const newCurrentlyWeanter = (index: number):ICurrentlyWeatherData => {
 		return {
 			time: hourlyWeather.times[index],
+			timezone: currentlyWeather.timezone,
 			sunrise: currentlyWeather.sunrise,
 			sunset: currentlyWeather.sunset,
 			weather: currentlyWeather.weather,

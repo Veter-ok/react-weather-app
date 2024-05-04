@@ -64,7 +64,6 @@ const PictureScreen:FC<IPropsPictureScreen> = ({city}) => {
 		}else{
 			setTimeOfDay('night')
 		}
-	console.log(`${season}-${timeOfDay}-${cloudCover}`)
 	}, [cloudCover, currentlyWeather.cloudcover, currentlyWeather.snowDepth, currentlyWeather.sunrise, currentlyWeather.sunset, currentlyWeather.time, season, timeOfDay])
 	
 	return (

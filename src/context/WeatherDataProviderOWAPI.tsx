@@ -2,7 +2,6 @@ import React, {createContext, FunctionComponent as FC, useCallback, useEffect, u
 import {ICurrentlyWeatherData } from "../types/weatherDataType";
 import { OPEN_WEATHER_API_URL } from "../api/api";
 import { CityType } from "../types/CityTypes";
-import { convertStringOWAPIToDate } from "../utils/FormatDate";
 
 interface IWeatherOWAPIDataProviderProps {
 	city: CityType
@@ -11,6 +10,7 @@ interface IWeatherOWAPIDataProviderProps {
 
 const defaultCurrentlyWeather:ICurrentlyWeatherData = {
 	time: new Date(),
+	timezone: "Europe/Moscow",
 	sunrise: new Date(),
 	sunset: new Date(),
 	weather: '',
@@ -27,12 +27,10 @@ const WeatherOWAPIDataContext = createContext({
 	time: new Date(),
 	currentlyWeather: defaultCurrentlyWeather,
 	setCurrentlyWeather: (c: ICurrentlyWeatherData) => {},
-	setNewDate: () => {},
 })
 
 const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({city, children}) => {
 	const {coordinates} = city
-	const [timezone, setTimezone] = useState("Europe/Moscow")
 	const [currentlyTime, setCurrentlyTime] = useState(new Date())
 	const [currentlyWeather, setCurrentlyWeather] = useState(defaultCurrentlyWeather)
 
@@ -44,22 +42,17 @@ const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({city, chil
 		}
 	}
 
-	const setNewDate = () => {
-		const newTime = convertStringOWAPIToDate(new Date().toLocaleString("ru-RU", {timeZone: timezone}))
-		setCurrentlyTime(newTime)
-		currentlyWeather.time = newTime
-	}
-
 	const fetchWeather = useCallback(async () => {
 		await fetch(`${OPEN_WEATHER_API_URL}onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=hourly,daily&appid=${process.env.REACT_APP_OW_API}`)
 			.then(response => {
 				response.json().then(data => {
-					const date = convertStringOWAPIToDate(new Date().toLocaleString("ru-RU", {timeZone: data.timezone}))
+					const date = new Date()
+					date.setHours(date.getHours() + data.timezone_offset / 3600 + date.getTimezoneOffset() / 60) 
 					setCurrentlyTime(date)
-					setTimezone(data.timezone)
 					const localOffset = new Date().getTimezoneOffset() * 60
 					setCurrentlyWeather({
 						time: date,
+						timezone: data.timezone,
 						sunrise: new Date((data.current.sunrise + data.timezone_offset + localOffset) * 1000),
 						sunset: new Date((data.current.sunset + data.timezone_offset + localOffset) * 1000),
 						weather: data.current.weather[0].description,
@@ -81,7 +74,7 @@ const WeatherDataOWAPIProvider:FC<IWeatherOWAPIDataProviderProps> = ({city, chil
 	}, [fetchWeather])
 
 	return (
-		<WeatherOWAPIDataContext.Provider value={{time: currentlyTime, currentlyWeather: currentlyWeather, setCurrentlyWeather: setNewCurrentlyWeather, setNewDate: setNewDate}}>
+		<WeatherOWAPIDataContext.Provider value={{time: currentlyTime, currentlyWeather: currentlyWeather, setCurrentlyWeather: setNewCurrentlyWeather}}>
 			{children}
 		</WeatherOWAPIDataContext.Provider>
 	)

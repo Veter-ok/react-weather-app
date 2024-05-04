@@ -1,14 +1,16 @@
-import { useContext} from "react"
+import { useContext, useState} from "react"
 import { WeatherOWAPIDataContext } from "../../../context/WeatherDataProviderOWAPI"
-import { convertDateToTime } from "../../../utils/FormatDate"
 
 const Clock = () => {
-	const {currentlyWeather, setNewDate} = useContext(WeatherOWAPIDataContext)
+	const {currentlyWeather} = useContext(WeatherOWAPIDataContext)
+	const [time, setTime] = useState(new Date())
 
-	setInterval(setNewDate,  10000)
+	setInterval(() => {
+		setTime(new Date())
+	},  10000)
 
 	return (
-		<div className="time">{convertDateToTime(currentlyWeather.time)}</div>
+		<div className="time">{time.toLocaleString("ru-RU", {timeZone: currentlyWeather.timezone}).slice(12, 17)}</div>
 	)
 }
 
