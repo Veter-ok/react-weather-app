@@ -1,12 +1,3 @@
-export interface IweatherData {
-	hourlyWeather: IHourlyWeatherData
-
-}
-
-export interface IweatherDataOWAPI {
-	currentlyWeather: ICurrentlyWeatherData,
-}
-
 export interface IHourlyWeatherData {
 	times: Date[]
 	temperatures: number[]
