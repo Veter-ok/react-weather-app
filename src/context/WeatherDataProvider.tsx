@@ -115,9 +115,37 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 		})
 	}
 
+	const getCurrentWeaher = async () => {
+		const params = {
+			"latitude": coordinates.lat,
+			"longitude": coordinates.lon,
+			"daily": ["sunrise", "sunset"],
+			"current": ["relative_humidity_2m", "temperature_2m", "rain", "snowfall", "weather_code", "wind_speed_10m", "cloud_cover", "apparent_temperature"]
+		}
+		const responses = await fetchWeatherApi("https://api.open-meteo.com/v1/forecast", params)
+		const response = responses[0]
+		const daily = response.daily()!;
+		const current = response.current()!;
+		setCurrentlyWeather({
+			time: new Date((Number(current.time()) + response.utcOffsetSeconds()) * 1000),
+			sunrise: new Date((Number(daily.variables(0)!.valuesInt64(0)) + response.utcOffsetSeconds()) * 1000),
+			sunset: new Date((Number(daily.variables(1)!.valuesInt64(0)) + response.utcOffsetSeconds()) * 1000),
+			weather: '',
+			timezone: String(response.timezone()),
+			snowDepth: 0,
+			humidity: current.variables(0)!.value(),
+			temperature: current.variables(1)!.value(),
+			rain: current.variables(2)!.value(),
+			snowfall: current.variables(3)!.value(),
+			windSpeed: current.variables(5)!.value(),
+			cloudcover: current.variables(6)!.value(),
+		})
+	}
+
 	useEffect(() => {
 		getHourlyWeather()
 		getDailyWeather()
+		getCurrentWeaher()
 	}, [coordinates.lat, coordinates.lon])
 
 	return (
