@@ -18,7 +18,7 @@ export const WeatherDailyBlock:FC = () => {
 						<div className="daily-block-temperature">from {Math.round(dailyWeather.temperatures_min[index])} to {Math.round(dailyWeather.temperatures_max[index])}°C</div>
 					</div>
 					<div className="daily-block-2">
-						<div className="wind">Wind: E {dailyWeather.windspeed[index]}km/h</div>
+						<div className="wind">Wind: E {Math.round(dailyWeather.windspeed[index] * 100) / 100}km/h</div>
 					</div>
 				</div>
 			)}

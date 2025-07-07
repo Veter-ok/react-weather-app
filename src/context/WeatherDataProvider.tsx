@@ -54,14 +54,6 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 	const [hourlyWeather, setHourlyWeather] = useState<IHourlyWeatherData>(defaultHourlyWeather)
 	const [dailyWeather, setDailyWeather] = useState<IDailyWeather>(defaultDailyWeather)
 
-	const convertStringsToDate = (data: string[]) => {
-		const new_array:Date[] = []
-		data.forEach((date) => {
-			new_array.push(new Date(date))
-		})
-		return new_array
-	}
-
 	const setNewCurrentlyWeather = (data: ICurrentlyWeatherData) => {
 		if (data.time.getHours() === currentlyWeather.time.getHours()){
 			getCurrentWeaher()
@@ -96,8 +88,8 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 
 	const getDailyWeather = async () => {
 		const params = {
-			"latitude": 52.52,
-			"longitude": 13.41,
+			"latitude": coordinates.lat,
+			"longitude": coordinates.lon,
 			"daily": ["temperature_2m_min", "temperature_2m_max", "rain_sum", "snowfall_sum", "wind_speed_10m_max"]
 		};
 		const responses = await fetchWeatherApi("https://api.open-meteo.com/v1/forecast", params);
@@ -135,10 +127,10 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 			timezone: response.timezone() == null ? "Europe/Moscow" : response.timezone()!,
 			snowDepth: 0,
 			humidity: current.variables(0)!.value(),
-			temperature: current.variables(1)!.value(),
+			temperature: Math.round(current.variables(1)!.value()),
 			rain: current.variables(2)!.value(),
 			snowfall: current.variables(3)!.value(),
-			windSpeed: current.variables(5)!.value(),
+			windSpeed: Math.round(current.variables(5)!.value() * 100) / 100,
 			cloudcover: current.variables(6)!.value(),
 		})
 	}

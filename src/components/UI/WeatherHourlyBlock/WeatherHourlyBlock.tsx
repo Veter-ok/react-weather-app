@@ -36,7 +36,7 @@ export const WeatherHourlyBlock:FC = () => {
 						<div className="hourly-block-temperature">{Math.round(hourlyWeather.temperatures[firstIndex + index])}°C</div>
 					</div>
 					<div className="hourly-block-2">
-						<div className="wind">Wind: E {hourlyWeather.windSpeed[firstIndex + index]}km/h</div>
+						<div className="wind">Wind: E {Math.round(hourlyWeather.windSpeed[firstIndex + index] * 100) / 100}km/h</div>
 						<div className="Humidity">Humidity: {hourlyWeather.humidity[firstIndex + index]}%</div>
 					</div>
 				</div>
