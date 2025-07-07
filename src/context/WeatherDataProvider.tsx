@@ -1,18 +1,10 @@
 import {createContext, FunctionComponent as FC, useEffect, useState} from "react"; 
 import { fetchWeatherApi } from 'openmeteo';
 import { ICurrentlyWeatherData, IDailyWeather, IHourlyWeatherData} from "../types/weatherDataType";
-import { OPEN_METEO_API_URL } from "../api/api";
-import { ResponseWeather } from "./types";
 
 interface IWeatherDataProviderProps {
 	coordinates: {lat: number, lon: number}
 	children: JSX.Element
-}
-
-interface IFullWeatherData {
-	hourlyWeather: IHourlyWeatherData
-	dailyWeather: IDailyWeather
-	currentlyWeather: ICurrentlyWeatherData
 }
 
 const defaultCurrentlyWeather:ICurrentlyWeatherData = {
@@ -50,10 +42,11 @@ const defaultDailyWeather:IDailyWeather = {
 	snowfall_sum: [],
 }
 
-const WeatherDataContext = createContext<IFullWeatherData>({
+const WeatherDataContext = createContext({
 	hourlyWeather: defaultHourlyWeather,
 	dailyWeather: defaultDailyWeather,
-	currentlyWeather: defaultCurrentlyWeather
+	currentlyWeather: defaultCurrentlyWeather,
+	setCurrentlyWeather: (c: ICurrentlyWeatherData) => {}
 })
 
 const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, children}) => {
@@ -67,6 +60,14 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 			new_array.push(new Date(date))
 		})
 		return new_array
+	}
+
+	const setNewCurrentlyWeather = (data: ICurrentlyWeatherData) => {
+		if (data.time.getHours() === currentlyWeather.time.getHours()){
+			getCurrentWeaher()
+		}else{
+			setCurrentlyWeather(data)
+		}
 	}
 
 	const getHourlyWeather = async () => {
@@ -131,7 +132,7 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 			sunrise: new Date((Number(daily.variables(0)!.valuesInt64(0)) + response.utcOffsetSeconds()) * 1000),
 			sunset: new Date((Number(daily.variables(1)!.valuesInt64(0)) + response.utcOffsetSeconds()) * 1000),
 			weather: '',
-			timezone: String(response.timezone()),
+			timezone: response.timezone() == null ? "Europe/Moscow" : response.timezone()!,
 			snowDepth: 0,
 			humidity: current.variables(0)!.value(),
 			temperature: current.variables(1)!.value(),
@@ -149,7 +150,7 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 	}, [coordinates.lat, coordinates.lon])
 
 	return (
-		<WeatherDataContext.Provider value={{currentlyWeather, hourlyWeather, dailyWeather}}>
+		<WeatherDataContext.Provider value={{currentlyWeather, hourlyWeather, dailyWeather, setCurrentlyWeather: setNewCurrentlyWeather}}>
 			{children}
 		</WeatherDataContext.Provider>
 	)

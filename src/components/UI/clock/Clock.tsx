@@ -1,8 +1,8 @@
 import { useContext, useState} from "react"
-import { WeatherOWAPIDataContext } from "../../../context/WeatherDataProviderOWAPI"
+import { WeatherDataContext } from "../../../context/WeatherDataProvider"
 
 const Clock = () => {
-	const {currentlyWeather} = useContext(WeatherOWAPIDataContext)
+	const {currentlyWeather} = useContext(WeatherDataContext)
 	const [time, setTime] = useState(new Date())
 
 	setInterval(() => {

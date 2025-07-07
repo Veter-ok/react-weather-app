@@ -1,15 +1,13 @@
 import {FunctionComponent as FC, useContext} from "react";
 import './WeatherHourlyBlock.css'
 import { DarkModeContext } from "../../../context/DarkModeProvider";
-import { WeatherDataContext} from "../../../context/WeatherDataProvider";
-import { WeatherOWAPIDataContext } from "../../../context/WeatherDataProviderOWAPI";
+import { WeatherDataContext } from "../../../context/WeatherDataProvider";
 import { ICurrentlyWeatherData } from "../../../types/weatherDataType";
 import { convertDateToTime } from "../../../utils/FormatDate";
 
 export const WeatherHourlyBlock:FC = () => {
-	const {hourlyWeather} = useContext(WeatherDataContext)
-	const {currentlyWeather, setCurrentlyWeather, time} = useContext(WeatherOWAPIDataContext)
-	const firstIndex = time.getHours()
+	const {currentlyWeather, hourlyWeather, setCurrentlyWeather} = useContext(WeatherDataContext)
+	const firstIndex = currentlyWeather.time.getHours()
 	const darkMode = useContext(DarkModeContext)
 
 	const newCurrentlyWeanter = (index: number):ICurrentlyWeatherData => {
