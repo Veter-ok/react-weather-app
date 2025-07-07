@@ -1,5 +1,6 @@
 import {createContext, FunctionComponent as FC, useEffect, useState} from "react"; 
-import { ICurrentlyWeatherData, IDailyWeather, IHourlyWeatherData, IweatherData } from "../types/weatherDataType";
+import { fetchWeatherApi } from 'openmeteo';
+import { ICurrentlyWeatherData, IDailyWeather, IHourlyWeatherData} from "../types/weatherDataType";
 import { OPEN_METEO_API_URL } from "../api/api";
 import { ResponseWeather } from "./types";
 
@@ -8,7 +9,7 @@ interface IWeatherDataProviderProps {
 	children: JSX.Element
 }
 
-interface IFullWeatherData extends IweatherData {
+interface IFullWeatherData {
 	hourlyWeather: IHourlyWeatherData
 	dailyWeather: IDailyWeather
 	currentlyWeather: ICurrentlyWeatherData
@@ -68,33 +69,55 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 		return new_array
 	}
 
+	const getHourlyWeather = async () => {
+		const params = {
+			"latitude": coordinates.lat,
+			"longitude": coordinates.lon,
+			"hourly": ["temperature_2m", "relative_humidity_2m", "wind_speed_10m", "snowfall", "rain", "snow_depth", "cloud_cover"]
+		};
+		const responses = await fetchWeatherApi("https://api.open-meteo.com/v1/forecast", params);
+		const response = responses[0];
+		const utcOffsetSeconds = response.utcOffsetSeconds();
+		const hourly = response.hourly()!;
+		setHourlyWeather({ 
+			times: [...Array((Number(hourly.timeEnd()) - Number(hourly.time())) / hourly.interval())].map(
+				(_, i) => new Date((Number(hourly.time()) + i * hourly.interval() + utcOffsetSeconds) * 1000)
+			),
+			temperatures: Array.from(hourly.variables(0)!.valuesArray()!),
+			humidity: Array.from(hourly.variables(1)!.valuesArray()!),
+			windSpeed: Array.from(hourly.variables(2)!.valuesArray()!),
+			snowfall: Array.from(hourly.variables(3)!.valuesArray()!),
+			rain: Array.from(hourly.variables(4)!.valuesArray()!),
+			snow_depth: Array.from(hourly.variables(5)!.valuesArray()!),
+			cloudcover: Array.from(hourly.variables(6)!.valuesArray()!),
+		})
+	}
+
+	const getDailyWeather = async () => {
+		const params = {
+			"latitude": 52.52,
+			"longitude": 13.41,
+			"daily": ["temperature_2m_min", "temperature_2m_max", "rain_sum", "snowfall_sum", "wind_speed_10m_max"]
+		};
+		const responses = await fetchWeatherApi("https://api.open-meteo.com/v1/forecast", params);
+		const response = responses[0];
+		const utcOffsetSeconds = response.utcOffsetSeconds();
+		const daily = response.daily()!;
+		setDailyWeather({ 
+			times: [...Array((Number(daily.timeEnd()) - Number(daily.time())) / daily.interval())].map(
+			(_, i) => new Date((Number(daily.time()) + i * daily.interval() + utcOffsetSeconds) * 1000)
+			),
+			temperatures_max: Array.from(daily.variables(1)!.valuesArray()!),
+			temperatures_min: Array.from(daily.variables(0)!.valuesArray()!),
+			windspeed: Array.from(daily.variables(4)!.valuesArray()!),
+			rain_sum: Array.from(daily.variables(2)!.valuesArray()!),
+			snowfall_sum: Array.from(daily.variables(3)!.valuesArray()!),
+		})
+	}
+
 	useEffect(() => {
-		fetch(`${OPEN_METEO_API_URL}latitude=${coordinates.lat}&longitude=${coordinates.lon}&current=temperature_2m&hourly=temperature_2m,relativehumidity_2m,cloudcover,windspeed_10m,snowfall,rain,snow_depth&daily=temperature_2m_max,temperature_2m_min,rain_sum,snowfall_sum,windspeed_10m_max&timezone=auto`)
-		.then((response) => response.json())
-		.then((data: ResponseWeather) => {
-			setHourlyWeather({
-				times: convertStringsToDate(data.hourly.time), 
-				temperatures: data.hourly.temperature_2m,
-				humidity: data.hourly.relativehumidity_2m,
-				windSpeed: data.hourly.windspeed_10m,
-				cloudcover: data.hourly.cloudcover,
-				rain: data.hourly.rain,
-				snowfall: data.hourly.snowfall,
-				snow_depth: data.hourly.snow_depth
-			})
-			setDailyWeather({
-				times: convertStringsToDate(data.daily.time),
-				temperatures_max: data.daily.temperature_2m_max,
-				temperatures_min: data.daily.temperature_2m_min,
-				windspeed: data.daily.windspeed_10m_max,
-				rain_sum: data.daily.rain_sum,
-				snowfall_sum: data.daily.snowfall_sum,
-			})
-			setCurrentlyWeather(defaultCurrentlyWeather)
-		})
-		.catch((error) => {
-			console.log(error)
-		})
+		getHourlyWeather()
+		getDailyWeather()
 	}, [coordinates.lat, coordinates.lon])
 
 	return (
