@@ -13,6 +13,12 @@
 	background-color: white;
 }
 
+.blocks .hourly-block:nth-child(1) {
+	background-color: rgb(233, 255, 223);
+	box-shadow: 4px 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+
 .hourly-block:hover {
 	box-shadow: 4px 8px 15px 0 rgba(0,0,0,0.3);
 }

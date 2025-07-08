@@ -73,9 +73,10 @@ const PictureScreen:FC<IPropsPictureScreen> = ({city}) => {
 				<div className="sunrise">Sunrise: {convertDateToTime(currentlyWeather.sunrise)}</div>
 				<div className="sunset">Sunset: &nbsp;{convertDateToTime(currentlyWeather.sunset)}</div>
 			</div>
-			<div className="city">{city.cityName}</div>
-			<div className="currently-temperature">{currentlyWeather.temperature}°C</div>
-			<div className="weather-1">{currentlyWeather.weather}</div>
+			<div className="main-block">
+				<div className="city">{city.cityName}</div>
+				<div className="main-info">{currentlyWeather.temperature}°C &nbsp; {currentlyWeather.weather}</div>
+			</div>
 			<div className={`frame ${timeOfDay} ${cloudCover}`} style={{backgroundColor: backgroundColors[`${timeOfDay}-${cloudCover}`]}}>
 				<Luminary timeOfDay={timeOfDay} cloudcover={currentlyWeather.cloudcover}/>
 				<Rainfall rain={currentlyWeather.rain} weather={currentlyWeather.weather}/>

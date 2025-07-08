@@ -24,41 +24,25 @@
 	top: 20px;
 }
 
+.main-block {
+	position: absolute;
+	text-align: center;
+	z-index: 10000;
+	top: 320px;
+	width: 20em;
+	left: 10%;
+}
+
 .city {
-	position: absolute;
-	font-size: 26px;
+	font-size: 27px;
 	color: white;
-	z-index: 10000;
-	top: 290px;
-	width: 12em;
 	overflow: hidden;
-	text-align: center;
-	left: 5.6em;
 }
 
-.currently-temperature {
-	position: absolute;
-	font-size: 24px;
+.main-info {
+	font-size: 22px;
 	color: white;
-	z-index: 10000;
-	top: 330px;
-	text-align: center;
-	width: 5em;
-	left: 10em;
 }
-
-.weather-1 {
-	position: absolute;
-	font-size: 20px;
-	color: white;
-	z-index: 10000;
-	top: 360px;
-	width: 12em;
-	overflow: hidden;
-	text-align: center;
-	left: 8.7em;
-}
-
 
 .frame {
 	position: absolute;
@@ -95,11 +79,8 @@
 	.city {
 		left: 4em;
 	}
-	.currently-temperature {
+	.main-info {
 		left: 8em;
-	}
-	.weather-1 {
-		left: 6.5em;
 	}
 }
 
@@ -111,11 +92,11 @@
 	.city {
 		left: 0.6em;
 	}
-	.currently-temperature {
-		left: 4.6em;
+	.main-block	{
+		left: 5%;
 	}
-	.weather-1 {
-		left: 2.5em;
+	.main-info {
+		left: 4.6em;
 	}
 	.time-block {
 		right: 7%;
@@ -131,7 +112,7 @@
 	.time-block {
 		right: 1%;
 	}
-	.city, .currently-temperature, .weather-1 {
+	.city, .main-info {
 		display: none;
 	}
 }
