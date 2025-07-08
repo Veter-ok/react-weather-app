@@ -46,16 +46,18 @@ const WeatherDataContext = createContext({
 	hourlyWeather: defaultHourlyWeather,
 	dailyWeather: defaultDailyWeather,
 	currentlyWeather: defaultCurrentlyWeather,
+	time: new Date(),
 	setCurrentlyWeather: (c: ICurrentlyWeatherData) => {}
 })
 
 const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, children}) => {
+	const [time, setTime] = useState<Date>(new Date())
 	const [currentlyWeather, setCurrentlyWeather] = useState<ICurrentlyWeatherData>(defaultCurrentlyWeather)
 	const [hourlyWeather, setHourlyWeather] = useState<IHourlyWeatherData>(defaultHourlyWeather)
 	const [dailyWeather, setDailyWeather] = useState<IDailyWeather>(defaultDailyWeather)
 
 	const setNewCurrentlyWeather = (data: ICurrentlyWeatherData) => {
-		if (data.time.getHours() === currentlyWeather.time.getHours()){
+		if (data.time.getHours() === time.getHours()){
 			getCurrentWeaher()
 		}else{
 			setCurrentlyWeather(data)
@@ -119,6 +121,7 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 		const response = responses[0]
 		const daily = response.daily()!;
 		const current = response.current()!;
+		setTime(new Date((Number(current.time()) + response.utcOffsetSeconds()) * 1000))
 		setCurrentlyWeather({
 			time: new Date((Number(current.time()) + response.utcOffsetSeconds()) * 1000),
 			sunrise: new Date((Number(daily.variables(0)!.valuesInt64(0)) + response.utcOffsetSeconds()) * 1000),
@@ -142,7 +145,7 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 	}, [coordinates.lat, coordinates.lon])
 
 	return (
-		<WeatherDataContext.Provider value={{currentlyWeather, hourlyWeather, dailyWeather, setCurrentlyWeather: setNewCurrentlyWeather}}>
+		<WeatherDataContext.Provider value={{currentlyWeather, hourlyWeather, dailyWeather, setCurrentlyWeather: setNewCurrentlyWeather, time: time}}>
 			{children}
 		</WeatherDataContext.Provider>
 	)

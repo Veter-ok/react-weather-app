@@ -6,8 +6,8 @@ import { ICurrentlyWeatherData } from "../../../types/weatherDataType";
 import { convertDateToTime } from "../../../utils/FormatDate";
 
 export const WeatherHourlyBlock:FC = () => {
-	const {currentlyWeather, hourlyWeather, setCurrentlyWeather} = useContext(WeatherDataContext)
-	const firstIndex = currentlyWeather.time.getHours()
+	const {currentlyWeather, hourlyWeather, setCurrentlyWeather, time} = useContext(WeatherDataContext)
+	const firstIndex = time.getHours() - 3
 	const darkMode = useContext(DarkModeContext)
 
 	const newCurrentlyWeanter = (index: number):ICurrentlyWeatherData => {
@@ -17,9 +17,9 @@ export const WeatherHourlyBlock:FC = () => {
 			sunrise: currentlyWeather.sunrise,
 			sunset: currentlyWeather.sunset,
 			weather: currentlyWeather.weather,
-			temperature: hourlyWeather.temperatures[index],
+			temperature: Math.round(hourlyWeather.temperatures[index]),
 			humidity: hourlyWeather.humidity[index],
-			windSpeed: hourlyWeather.windSpeed[index],
+			windSpeed: Math.round(hourlyWeather.windSpeed[index]),
 			cloudcover: hourlyWeather.cloudcover[index],
 			rain: hourlyWeather.rain[index],
 			snowfall: hourlyWeather.snowfall[index],
