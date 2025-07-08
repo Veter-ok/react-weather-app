@@ -3,7 +3,7 @@ import './WeatherDailyBlock.css'
 import { DarkModeContext } from "../../../context/DarkModeProvider";
 import { WeatherDataContext} from "../../../context/WeatherDataProvider";
 
-const month = ["Jan", "Feb", "March", "Apr", "May"]
+const month = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Nov", "Dec"]
 
 export const WeatherDailyBlock:FC = () => {
 	const {dailyWeather} = useContext(WeatherDataContext)
