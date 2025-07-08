@@ -55,6 +55,16 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 	const [currentlyWeather, setCurrentlyWeather] = useState<ICurrentlyWeatherData>(defaultCurrentlyWeather)
 	const [hourlyWeather, setHourlyWeather] = useState<IHourlyWeatherData>(defaultHourlyWeather)
 	const [dailyWeather, setDailyWeather] = useState<IDailyWeather>(defaultDailyWeather)
+	const codeToWeahter = {
+		0:  "Clear sky",             1:  "Mainly clear",         2:  "Partly cloudy",       3:  "Overcast",
+		45: "Fog",                   48: "Depositing rime fog",  51: "Drizzle",             53: "Drizzle",
+		56: "Freezing Drizzle",      57: "Freezing Drizzle",     61: "Slight rain",         63: "Moderate rain",
+		65: "Heavy rain",            66: "Light Freezing Rain",  67: "Heavy Freezing Rain", 71: "Slight snow fall",
+		73: "Moderate snow fall",    75: "Heavy snow fall",      77: "Snow grains",         80: "Slight rain showers",
+		81: "Moderate rain showers", 82: "Violent rain showers", 85: "Slight snow showers", 86: "Heavy snow showers",
+		95: "Thunderstorm: Slight or moderate", 96: "Thunderstorm with slight hail", 99: "Thunderstorm with heavy hail"
+
+	}
 
 	const setNewCurrentlyWeather = (data: ICurrentlyWeatherData) => {
 		if (data.time.getHours() === time.getHours()){
@@ -126,7 +136,7 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 			time: new Date((Number(current.time()) + response.utcOffsetSeconds()) * 1000),
 			sunrise: new Date((Number(daily.variables(0)!.valuesInt64(0)) + response.utcOffsetSeconds()) * 1000),
 			sunset: new Date((Number(daily.variables(1)!.valuesInt64(0)) + response.utcOffsetSeconds()) * 1000),
-			weather: '',
+			weather: codeToWeahter[current.variables(4)!.value() as keyof typeof codeToWeahter],
 			timezone: response.timezone() == null ? "Europe/Moscow" : response.timezone()!,
 			snowDepth: 0,
 			humidity: current.variables(0)!.value(),
