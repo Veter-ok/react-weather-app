@@ -1,6 +1,7 @@
 import {createContext, FunctionComponent as FC, useEffect, useState} from "react"; 
 import { fetchWeatherApi } from 'openmeteo';
 import { ICurrentlyWeatherData, IDailyWeather, IHourlyWeatherData} from "../types/weatherDataType";
+import { convertStringOWAPIToDate } from "../utils/FormatDate";
 
 interface IWeatherDataProviderProps {
 	coordinates: {lat: number, lon: number}
@@ -62,7 +63,7 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 		65: "Heavy rain",            66: "Light Freezing Rain",  67: "Heavy Freezing Rain", 71: "Slight snow fall",
 		73: "Moderate snow fall",    75: "Heavy snow fall",      77: "Snow grains",         80: "Slight rain showers",
 		81: "Moderate rain showers", 82: "Violent rain showers", 85: "Slight snow showers", 86: "Heavy snow showers",
-		95: "Thunderstorm: Slight or moderate", 96: "Thunderstorm with slight hail", 99: "Thunderstorm with heavy hail"
+		95: "Slight Thunderstorm: Slight or moderate", 96: "Thunderstorm with slight hail", 99: "Thunderstorm with heavy hail"
 
 	}
 
@@ -125,19 +126,23 @@ const WeatherDataProvider:FC<IWeatherDataProviderProps> = ({coordinates, childre
 			"latitude": coordinates.lat,
 			"longitude": coordinates.lon,
 			"daily": ["sunrise", "sunset"],
-			"current": ["relative_humidity_2m", "temperature_2m", "rain", "snowfall", "weather_code", "wind_speed_10m", "cloud_cover", "apparent_temperature"]
+			"current": ["relative_humidity_2m", "temperature_2m", "rain", "snowfall", "weather_code", "wind_speed_10m", "cloud_cover", "apparent_temperature"],
+			"timezone": "auto"
 		}
 		const responses = await fetchWeatherApi("https://api.open-meteo.com/v1/forecast", params)
 		const response = responses[0]
 		const daily = response.daily()!;
 		const current = response.current()!;
-		setTime(new Date((Number(current.time()) + response.utcOffsetSeconds()) * 1000))
+		const sunrise = new Date(Number(daily.variables(0)!.valuesInt64(0)) * 1000)
+		const sunset = new Date(Number(daily.variables(1)!.valuesInt64(0)) * 1000)
+		const timezone = response.timezone()! == null ? currentlyWeather.timezone : response.timezone()!
+		setTime(convertStringOWAPIToDate(new Date().toLocaleString("ru-RU", {timeZone: timezone})))
 		setCurrentlyWeather({
-			time: new Date((Number(current.time()) + response.utcOffsetSeconds()) * 1000),
-			sunrise: new Date((Number(daily.variables(0)!.valuesInt64(0)) + response.utcOffsetSeconds()) * 1000),
-			sunset: new Date((Number(daily.variables(1)!.valuesInt64(0)) + response.utcOffsetSeconds()) * 1000),
+			time: convertStringOWAPIToDate(new Date().toLocaleString("ru-RU", {timeZone: timezone})),
+			sunrise: convertStringOWAPIToDate(sunrise.toLocaleString("ru-RU", {timeZone: timezone})),
+			sunset: convertStringOWAPIToDate(sunset.toLocaleString("ru-RU", {timeZone: timezone})),
 			weather: codeToWeahter[current.variables(4)!.value() as keyof typeof codeToWeahter],
-			timezone: response.timezone() == null ? "Europe/Moscow" : response.timezone()!,
+			timezone: timezone,
 			snowDepth: 0,
 			humidity: current.variables(0)!.value(),
 			temperature: Math.round(current.variables(1)!.value()),
