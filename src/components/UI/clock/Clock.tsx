@@ -10,7 +10,7 @@ const Clock = () => {
 	// },  10000)
 
 	return (
-		<div className="time">{time.toLocaleString().slice(12, 17)}</div>
+		<div className="time">{time.toLocaleString("ru-RU").slice(12, 17)}</div>
 	)
 }
 
